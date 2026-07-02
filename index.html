@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#5BB450">
+<title>Gota 💧</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#E9F5DE; --card:#FFFDF6; --borda:#DCEECB;
+  --verde:#5BB450; --verde-esc:#3E8E38; --verde-claro:#C9E7B4; --verde-fundo:#EFF8E6;
+  --laranja:#FF9F1C; --amarelo:#FFD93D; --azul:#4FC3F7; --roxo:#8E7CC3;
+  --texto:#37522E; --cinza:#8A9B7E; --rosa:#F17BA6;
+  --manha:#FF9F1C; --tarde:#2EC4B6; --noite:#8E7CC3;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Fredoka',sans-serif;
+  background:linear-gradient(170deg,#F1F9E8 0%,#E9F5DE 45%,#E2F1D4 100%);
+  background-attachment:fixed;min-height:100vh;color:var(--texto);
+}
+.wrap{padding:0 0 96px;max-width:540px;margin:0 auto;position:relative}
+.pad{padding:0 14px}
+.tela{display:none}
+.tela.ativa{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ====== Botões ====== */
+.btn{display:block;width:100%;border:none;border-radius:30px;padding:15px;font-family:'Baloo 2',sans-serif;font-size:17px;font-weight:800;cursor:pointer;transition:transform .12s,opacity .2s}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:linear-gradient(135deg,#6FC162,#4C9A41);color:#fff;box-shadow:0 6px 16px rgba(76,154,65,.4)}
+.btn-primary:disabled{background:#ccc;box-shadow:none;cursor:not-allowed;opacity:.7}
+.btn-secundario{background:#fff;border:2px solid var(--borda);color:var(--cinza);box-shadow:none;font-size:15px;padding:12px}
+
+/* ====== Cenário do topo (SVG) + mascote ====== */
+.topo{position:relative;margin-bottom:66px}
+.topo.mini{margin-bottom:14px}
+.cenario{height:205px;border-radius:0 0 32px 32px;overflow:hidden;box-shadow:0 6px 18px rgba(60,110,45,.15)}
+.topo.mini .cenario{height:118px}
+.cenario svg{width:100%;height:100%;display:block}
+.mascote{position:absolute;left:50%;bottom:-48px;transform:translateX(-50%);width:114px;height:114px;border-radius:50%;
+  background:radial-gradient(circle at 50% 32%,#FFF7E0,#FFE9B8);display:flex;align-items:center;justify-content:center;
+  font-size:64px;border:5px solid #fff;box-shadow:0 8px 20px rgba(60,110,45,.28);z-index:5}
+.mascote::after{content:"";position:absolute;inset:-11px;border-radius:50%;border:3px dashed var(--verde);opacity:.55;animation:girar 24s linear infinite;pointer-events:none}
+@keyframes girar{to{transform:rotate(360deg)}}
+.lapis{position:absolute;bottom:-4px;right:-10px;width:38px;height:38px;border-radius:50%;
+  background:linear-gradient(135deg,#FFB74D,#FF9F1C);border:3px solid #fff;font-size:16px;cursor:pointer;z-index:6;
+  box-shadow:0 4px 10px rgba(255,159,28,.45);transition:transform .15s}
+.lapis:active{transform:scale(.88)}
+
+/* ====== Cabeçalho saudação ====== */
+.saudacao{text-align:center;margin-bottom:16px}
+.saudacao h1{font-family:'Baloo 2',sans-serif;font-size:24px;color:var(--verde-esc)}
+.saudacao p{font-size:13.5px;color:var(--cinza);font-weight:500;margin-top:2px}
+.kid-chip{display:inline-flex;align-items:center;gap:6px;margin-top:9px;background:#fff;border:2px solid var(--verde-claro);border-radius:30px;padding:6px 16px;font-family:'Baloo 2';font-weight:700;font-size:13px;color:var(--verde-esc);cursor:pointer;box-shadow:0 3px 8px rgba(60,110,45,.1);transition:transform .12s}
+.kid-chip:active{transform:scale(.95)}
+
+/* ====== Cards genéricos ====== */
+.card-form{background:var(--card);border-radius:22px;padding:20px;box-shadow:0 6px 18px rgba(60,110,45,.08);border:2px solid var(--borda);margin-bottom:14px}
+.card-form h2{font-family:'Baloo 2';font-size:16px;color:var(--verde-esc);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.campo{margin-bottom:14px}
+.campo:last-child{margin-bottom:0}
+.campo label{display:block;font-size:13.5px;font-weight:700;margin-bottom:6px;color:#5c7351}
+.campo input[type=text],.campo input[type=time],.campo input[type=password],.campo select{width:100%;border:2px solid var(--borda);border-radius:14px;padding:12px 14px;font-family:'Fredoka';font-size:16px;color:var(--texto);background:#FBFDF7}
+.campo input:focus,.campo select:focus{outline:none;border-color:var(--verde);background:#fff}
+.duas-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.consent{display:flex;gap:11px;align-items:flex-start;background:var(--verde-fundo);border:2px solid var(--verde-claro);border-radius:14px;padding:13px}
+.consent input{width:22px;height:22px;flex:none;margin-top:1px;accent-color:var(--verde)}
+.consent label{font-size:12.5px;line-height:1.4;color:#5c7351;font-weight:500}
+.nota{font-size:11.5px;color:#9cae90;text-align:center;margin-top:10px;line-height:1.4;padding:0 8px}
+
+/* ====== Setup tarefas ====== */
+.setup-grupo{margin-bottom:16px}
+.setup-grupo h3{display:inline-flex;align-items:center;gap:8px;font-family:'Baloo 2',sans-serif;font-size:15px;color:#fff;padding:7px 16px;border-radius:30px;margin-bottom:10px}
+.setup-grupo.manha h3{background:var(--manha)} .setup-grupo.tarde h3{background:var(--tarde)} .setup-grupo.noite h3{background:var(--noite)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:2px solid var(--borda);border-radius:30px;padding:8px 13px;font-size:13.5px;font-weight:600;cursor:pointer;user-select:none;transition:all .15s;color:var(--texto)}
+.chip .ce{font-size:18px}
+.chip.on{background:var(--verde-fundo);border-color:var(--verde);color:var(--verde-esc)}
+.chip.on::after{content:"✓";margin-left:2px;font-weight:800;color:var(--verde)}
+.chip .rm{margin-left:4px;color:#bbb;font-weight:800}
+.add-bloco{background:#fff;border:2px dashed #cfe0bd;border-radius:16px;padding:14px;margin-top:8px}
+.add-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.add-row input[type=text]{flex:1;min-width:130px;border:2px solid var(--borda);border-radius:12px;padding:10px;font-family:'Fredoka';font-size:14px}
+.emoji-pick{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0 0}
+.emoji-pick span{font-size:20px;padding:5px;border-radius:10px;cursor:pointer;border:2px solid transparent}
+.emoji-pick span.sel{border-color:var(--verde);background:var(--verde-fundo)}
+.add-btn{background:var(--tarde);color:#fff;border:none;border-radius:12px;padding:10px 16px;font-family:'Baloo 2';font-weight:700;cursor:pointer}
+
+/* ====== Painel verde (stats) ====== */
+.painel{background:linear-gradient(135deg,#6FC162,#4C9A41);border-radius:24px;padding:16px;color:#fff;margin-bottom:14px;box-shadow:0 8px 20px rgba(76,154,65,.32);position:relative;overflow:hidden}
+.painel::before{content:"";position:absolute;top:-44px;right:-34px;width:130px;height:130px;background:rgba(255,255,255,.13);border-radius:50%}
+.painel-linhas{display:flex;gap:10px;position:relative;z-index:1}
+.painel-item{flex:1;background:rgba(255,255,255,.16);border-radius:18px;padding:12px 10px;text-align:center}
+.painel-item .pi-label{font-size:11.5px;font-weight:600;opacity:.92;text-transform:uppercase;letter-spacing:.4px}
+.painel-item .pi-valor{font-family:'Baloo 2';font-size:23px;font-weight:800;margin-top:2px;line-height:1.1}
+.painel-item .pi-sub{font-size:11px;opacity:.85;margin-top:1px}
+.progress-wrap{background:rgba(255,255,255,.3);border-radius:30px;height:13px;margin-top:12px;overflow:hidden;position:relative;z-index:1}
+.progress-bar{background:linear-gradient(90deg,#FFE97F,#FFD93D);border-radius:30px;height:100%;width:0;transition:width .55s cubic-bezier(.34,1.56,.64,1)}
+.painel .p-sub{position:relative;z-index:1;text-align:center;font-size:12.5px;margin-top:8px;font-weight:500;opacity:.95}
+
+/* ====== Card lembretes ====== */
+.lembretes{background:var(--card);border-radius:22px;border:2px solid var(--borda);box-shadow:0 5px 14px rgba(60,110,45,.07);margin-bottom:14px;overflow:hidden}
+.lembretes .lem-head{background:var(--verde-fundo);padding:11px 16px;font-family:'Baloo 2';font-size:15px;color:var(--verde-esc);display:flex;align-items:center;gap:8px}
+.lem-row{display:flex;align-items:center;gap:12px;padding:13px 16px;border-top:1.5px solid #F0F6E8}
+.lem-row .lem-ico{width:46px;height:46px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;flex:none}
+.lem-row.agua .lem-ico{background:#E3F4FD}
+.lem-row.xixi .lem-ico{background:#FFF3D6}
+.lem-row.sono .lem-ico{background:#EFEAFB}
+.lem-info{flex:1;min-width:0}
+.lem-info .lem-titulo{font-size:14px;font-weight:700}
+.lem-info .lem-tempo{font-size:12.5px;color:var(--cinza);margin-top:1px;font-weight:500}
+.lem-row.due .lem-tempo{color:#E5731F;font-weight:700;animation:pisca 1.2s ease infinite}
+@keyframes pisca{50%{opacity:.45}}
+.lem-btn{flex:none;border:none;border-radius:30px;padding:9px 15px;font-family:'Baloo 2';font-size:13.5px;font-weight:800;color:#fff;cursor:pointer;transition:transform .12s}
+.lem-btn:active{transform:scale(.93)}
+.lem-btn.b-agua{background:linear-gradient(135deg,#5BC8F5,#2FA8DF);box-shadow:0 4px 10px rgba(47,168,223,.35)}
+.lem-btn.b-xixi{background:linear-gradient(135deg,#FFB74D,#FF9F1C);box-shadow:0 4px 10px rgba(255,159,28,.35)}
+
+/* ====== Semana ====== */
+.semana{background:var(--card);border-radius:22px;padding:14px;margin-bottom:16px;box-shadow:0 5px 14px rgba(60,110,45,.07);border:2px solid var(--borda)}
+.semana-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.semana-head>span:first-child{font-family:'Baloo 2';font-size:15px;font-weight:700;color:var(--verde-esc)}
+.semana-total{background:linear-gradient(135deg,#FFE97F,#FFD93D);color:#7B4F00;font-family:'Baloo 2';font-size:13px;font-weight:800;padding:4px 14px;border-radius:30px}
+.semana-dias{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.dia{text-align:center;border-radius:14px;padding:8px 2px;background:#F7FBF1;border:2px solid #EDF5E2;transition:all .25s}
+.dia:not(.hoje){opacity:.62}
+.dia.hoje{border-color:var(--laranja);background:#FFF8EA}
+.dia.cheio{background:var(--verde-fundo);border-color:var(--verde)}
+.dia .dlabel{font-size:10px;font-weight:600;color:#9cae90;text-transform:uppercase}
+.dia .dnum{font-family:'Baloo 2';font-size:16px;font-weight:800;color:var(--laranja);margin-top:3px;line-height:1}
+.dia .dstar{font-size:11px;margin-top:1px}
+
+/* ====== Períodos / tarefas ====== */
+.periodo{margin-bottom:18px}
+.periodo-label{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:30px;font-family:'Baloo 2';font-size:16px;font-weight:700;color:#fff;margin-bottom:12px;box-shadow:0 5px 12px rgba(0,0,0,.12)}
+.periodo-label.manha{background:linear-gradient(135deg,#FFB347,#FF9F1C)}
+.periodo-label.tarde{background:linear-gradient(135deg,#4DD0C4,#2EC4B6)}
+.periodo-label.noite{background:linear-gradient(135deg,#A493D6,#8E7CC3)}
+.periodo-hora{font-size:12px;font-weight:600;background:rgba(255,255,255,.25);padding:2px 10px;border-radius:20px}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(102px,1fr));gap:10px}
+.card{background:#fff;border-radius:20px;border:3px solid #EDF5E2;padding:14px 6px 10px;text-align:center;cursor:pointer;user-select:none;position:relative;box-shadow:0 4px 10px rgba(60,110,45,.06);transition:transform .15s,border-color .25s,background .25s}
+.card:active{transform:scale(.92)}
+.card.done{background:var(--verde-fundo)}
+.card .ilust{font-size:40px;display:block;margin-bottom:6px;transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+.card.done .ilust{transform:scale(1.16) rotate(-4deg)}
+.card .nome{font-size:13px;font-weight:600;color:var(--texto);line-height:1.2}
+.card .check{width:28px;height:28px;border-radius:50%;border:2.5px solid #dde8d0;margin:8px auto 0;display:flex;align-items:center;justify-content:center;font-size:16px;color:transparent;transition:all .25s cubic-bezier(.34,1.56,.64,1)}
+.card.done .check{background:var(--verde);border-color:var(--verde);color:#fff;transform:scale(1.1)}
+.card.manha-card.done{border-color:var(--manha)}
+.card.tarde-card.done{border-color:var(--tarde)}
+.card.noite-card.done{border-color:var(--noite)}
+
+.congrats{display:none;text-align:center;padding:24px;background:linear-gradient(135deg,#FFFDE7,#FFF9C4);border-radius:24px;margin-top:14px;border:3px solid var(--amarelo)}
+.congrats.show{display:block;animation:pop .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{0%{transform:scale(.7);opacity:0}100%{transform:scale(1);opacity:1}}
+.congrats .trophy{font-size:52px;margin-bottom:8px;display:block}
+.congrats p{font-family:'Baloo 2';font-size:19px;font-weight:800;color:#7B4F00}
+.congrats .small{font-size:14px;color:#B8860B;margin-top:6px;font-weight:500}
+
+/* ====== Tela Cuidados ====== */
+.gota-medidor{display:flex;justify-content:center;margin:6px 0 4px}
+.gota-svg{width:118px;height:150px;transition:transform .5s cubic-bezier(.34,1.56,.64,1);transform:scale(.82)}
+.gota-svg.pop{animation:gotapop .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes gotapop{0%{transform:scale(.9)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
+.gota-contorno{fill:#F4FBFF;stroke:#BFE4F7;stroke-width:4}
+.gota-nivel{fill:#8ED4F5;transition:y .6s cubic-bezier(.34,1.56,.64,1),height .6s cubic-bezier(.34,1.56,.64,1),fill .4s}
+.gota-nivel.cheia{fill:#4FC3F7}
+.gota-carinha{font-size:26px}
+.rim-wrap{position:relative;width:112px;height:112px;margin:2px auto 0}
+.rim-svg{width:100%;height:100%;display:block;transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+.rim-svg.apertado{animation:rimtremor .45s ease-in-out infinite}
+@keyframes rimtremor{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+.rim-corpo{fill:#F3A78B;stroke:#D97F63;stroke-width:4}
+.rim-carinha{position:absolute;top:32px;left:0;right:0;text-align:center;font-size:32px;pointer-events:none}
+.rim-legenda{text-align:center;font-size:12.5px;font-weight:700;color:var(--cinza);margin:4px 0 10px}
+.agua-copos{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0 6px}
+.copo{width:44px;height:52px;border-radius:10px 10px 14px 14px;border:3px solid #BFE4F7;background:#F4FBFF;display:flex;align-items:flex-end;justify-content:center;font-size:22px;padding-bottom:4px;transition:all .3s;position:relative;overflow:hidden}
+.copo.cheio{border-color:#2FA8DF;background:linear-gradient(180deg,#E3F4FD 20%,#8ED4F5)}
+.copo.extra{border-color:var(--amarelo);background:linear-gradient(180deg,#FFFBE5 20%,#FFE97F)}
+.agua-meta-txt{text-align:center;font-size:13px;color:var(--cinza);font-weight:600;margin-bottom:12px}
+.hist-lista{margin-top:6px}
+.hist-item{display:flex;align-items:center;gap:10px;padding:9px 4px;border-top:1.5px solid #F0F6E8;font-size:14px}
+.hist-item:first-child{border-top:none}
+.hist-item .h-hora{font-family:'Baloo 2';font-weight:800;color:var(--verde-esc);min-width:52px}
+.hist-item .h-gap{font-size:12px;color:var(--cinza);font-weight:600;flex:1}
+.hist-item .h-del{border:none;background:none;color:#d8b0b0;font-size:15px;cursor:pointer;padding:4px}
+.hist-vazio{text-align:center;color:#9cae90;font-size:13px;padding:14px 0 6px}
+.stat-pills{display:flex;gap:8px;margin-top:10px}
+.stat-pill{flex:1;background:var(--verde-fundo);border:2px solid var(--verde-claro);border-radius:16px;padding:9px 6px;text-align:center}
+.stat-pill .sp-v{font-family:'Baloo 2';font-size:17px;font-weight:800;color:var(--verde-esc)}
+.stat-pill .sp-l{font-size:10.5px;color:var(--cinza);font-weight:600;text-transform:uppercase}
+.btn-registro{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:none;border-radius:30px;padding:14px;font-family:'Baloo 2';font-size:16px;font-weight:800;color:#fff;cursor:pointer;margin-top:12px;transition:transform .12s}
+.btn-registro:active{transform:scale(.96)}
+.btn-registro.r-agua{background:linear-gradient(135deg,#5BC8F5,#2FA8DF);box-shadow:0 6px 14px rgba(47,168,223,.35)}
+.btn-registro.r-xixi{background:linear-gradient(135deg,#FFB74D,#FF9F1C);box-shadow:0 6px 14px rgba(255,159,28,.35)}
+.btn-registro.r-verde{background:linear-gradient(135deg,#6FC162,#4C9A41);box-shadow:0 6px 14px rgba(76,154,65,.35)}
+.btn-registro.r-zap{background:linear-gradient(135deg,#4AD66D,#25A85C);box-shadow:0 6px 14px rgba(37,168,92,.35)}
+
+/* ====== Relatório ====== */
+.rel-head,.rel-row{display:grid;grid-template-columns:1.1fr .9fr .7fr .7fr 1fr;gap:4px;align-items:center;padding:8px 4px;font-size:12.5px}
+.rel-head{font-weight:700;color:var(--cinza);text-transform:uppercase;font-size:10px;letter-spacing:.3px;border-bottom:2px solid #F0F6E8}
+.rel-row{border-bottom:1.5px solid #F0F6E8;font-weight:600}
+.rel-row:last-child{border-bottom:none}
+.rel-row .r-data{font-family:'Baloo 2';font-weight:800;color:var(--verde-esc)}
+.rel-row .r-hoje{background:var(--verde-fundo);border-radius:8px;padding:1px 6px}
+
+/* ====== Ajustes / listas ====== */
+.ajuste-item{display:flex;align-items:center;gap:12px;background:var(--card);border:2px solid var(--borda);border-radius:18px;padding:14px 16px;margin-bottom:10px;cursor:pointer;box-shadow:0 4px 10px rgba(60,110,45,.05)}
+.ajuste-item:active{transform:scale(.98)}
+.ajuste-item .aj-ico{font-size:24px}
+.ajuste-item .aj-txt{flex:1;min-width:0}
+.ajuste-item .aj-txt b{font-size:14.5px;display:block}
+.ajuste-item .aj-txt span{font-size:12px;color:var(--cinza)}
+.ajuste-item .aj-seta{color:#c3d4b4;font-weight:800}
+.ajuste-item.kid-ativa{border-color:var(--verde);background:var(--verde-fundo)}
+.kid-badge{background:var(--verde);color:#fff;font-family:'Baloo 2';font-size:10.5px;font-weight:800;padding:3px 10px;border-radius:20px;text-transform:uppercase}
+.kid-acao{border:none;background:#fff;border:2px solid var(--borda);border-radius:12px;width:36px;height:36px;font-size:15px;cursor:pointer;flex:none}
+
+/* ====== Modais ====== */
+.modal-fundo{display:none;position:fixed;inset:0;background:rgba(40,60,30,.5);z-index:600;align-items:center;justify-content:center;padding:18px}
+.modal-fundo.show{display:flex;animation:fade .2s ease}
+.modal{background:#fff;border-radius:26px;padding:22px 20px;max-width:420px;width:100%;max-height:82vh;overflow:auto;border:3px solid var(--verde-claro)}
+.modal h2{font-family:'Baloo 2';font-size:19px;color:var(--verde-esc);text-align:center;margin-bottom:6px}
+.modal .m-sub{font-size:13px;color:var(--cinza);text-align:center;margin-bottom:14px;font-weight:500}
+.avatar-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:8px 0 16px}
+.avatar-op{font-size:30px;padding:9px 4px;border-radius:16px;border:3px solid transparent;background:#F7FBF1;cursor:pointer;transition:transform .12s}
+.avatar-op:active{transform:scale(.88)}
+.avatar-op.sel{border-color:var(--verde);background:var(--verde-fundo)}
+
+/* ====== Nav inferior ====== */
+.navbar{position:fixed;bottom:0;left:0;right:0;z-index:100;display:none;justify-content:center;padding:10px 14px calc(10px + env(safe-area-inset-bottom))}
+.navbar .nav-in{display:flex;width:100%;max-width:512px;background:#fff;border-radius:26px;box-shadow:0 -2px 24px rgba(60,110,45,.18);padding:7px;gap:4px;border:2px solid var(--borda)}
+.nav-item{flex:1;border:none;background:none;border-radius:20px;padding:8px 2px 6px;text-align:center;cursor:pointer;font-family:'Fredoka';transition:background .2s}
+.nav-item .ni-ico{font-size:22px;display:block;line-height:1.2}
+.nav-item .ni-lbl{font-size:10.5px;font-weight:700;color:#9cae90;margin-top:1px}
+.nav-item.on{background:var(--verde-fundo)}
+.nav-item.on .ni-lbl{color:var(--verde-esc)}
+
+/* ====== Toast / confete / aviso ====== */
+.confetti-star{position:absolute;pointer-events:none;font-size:24px;animation:flyup 1.1s ease-out forwards;z-index:50}
+@keyframes flyup{0%{opacity:1;transform:translateY(0) scale(1) rotate(0)}100%{opacity:0;transform:translateY(-100px) scale(1.7) rotate(45deg)}}
+.toast{position:fixed;bottom:92px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#6FC162,#4C9A41);color:#fff;padding:11px 26px;border-radius:30px;font-family:'Baloo 2';font-size:15px;font-weight:700;z-index:9999;pointer-events:none;box-shadow:0 6px 16px rgba(76,154,65,.4);animation:toastin .3s ease;max-width:88vw;text-align:center}
+@keyframes toastin{from{opacity:0;transform:translateX(-50%) translateY(12px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.aviso-topo{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:9998;background:#fff;border:3px solid var(--laranja);border-radius:22px;padding:12px 18px;display:none;align-items:center;gap:10px;box-shadow:0 10px 26px rgba(0,0,0,.18);max-width:92vw;width:400px;animation:toastin .35s ease}
+.aviso-topo.show{display:flex}
+.aviso-topo .av-emoji{font-size:30px;flex:none}
+.aviso-topo .av-txt{flex:1;font-size:13.5px;font-weight:600;line-height:1.3}
+.aviso-topo .av-txt b{font-family:'Baloo 2';font-size:15px;display:block;color:#E5731F}
+.aviso-topo .av-x{border:none;background:#F5F5F0;border-radius:50%;width:30px;height:30px;font-weight:800;color:#999;cursor:pointer;flex:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ================= TELA 1: CADASTRO ================= -->
+  <section class="tela ativa" id="tela-cadastro">
+    <div class="topo"><div class="cenario"></div><div class="mascote"><span id="avatarCadastro">🐯</span></div></div>
+    <div class="pad">
+      <div class="saudacao">
+        <h1 id="cadTitulo">Bem-vindo(a)! 🌈</h1>
+        <p id="cadSub">Vamos montar a rotina do seu filho(a)</p>
+      </div>
+      <div class="card-form">
+        <div class="campo">
+          <label for="inResp">Nome do responsável</label>
+          <input type="text" id="inResp" placeholder="Ex.: Ana Paula" autocomplete="off">
+        </div>
+        <div class="campo">
+          <label for="inCrianca">Nome da criança</label>
+          <input type="text" id="inCrianca" placeholder="Ex.: Sofia" autocomplete="off">
+        </div>
+        <div class="consent">
+          <input type="checkbox" id="inConsent">
+          <label for="inConsent">Autorizo o uso do nome do responsável e da criança para personalizar esta rotina, e o envio automático dos registros de rotina para acompanhamento profissional.</label>
+        </div>
+      </div>
+      <button class="btn btn-primary" id="btnCadastro" disabled>Continuar</button>
+      <button class="btn btn-secundario" id="btnCadVoltar" style="margin-top:10px;display:none">← Voltar</button>
+      <p class="nota">Os registros de rotina, água e xixi são enviados automaticamente para acompanhamento profissional. Você pode apagá-los quando quiser em Ajustes.</p>
+    </div>
+  </section>
+
+  <!-- ================= TELA 2: PERSONALIZAR ================= -->
+  <section class="tela" id="tela-setup">
+    <div class="topo mini"><div class="cenario"></div></div>
+    <div class="pad">
+      <div class="saudacao">
+        <h1 id="setupTitulo">Rotina 🌟</h1>
+        <p id="setupSub">Escolha os horários e as tarefas do dia</p>
+      </div>
+
+      <div class="card-form">
+        <h2>⏰ Horários de sono</h2>
+        <div class="duas-col">
+          <div class="campo">
+            <label for="cfgAcordar">🌅 Hora de acordar</label>
+            <input type="time" id="cfgAcordar" value="07:00">
+          </div>
+          <div class="campo">
+            <label for="cfgDormir">🌙 Hora de dormir</label>
+            <input type="time" id="cfgDormir" value="20:30">
+          </div>
+        </div>
+      </div>
+
+      <div class="card-form">
+        <h2>🚽 Lembrete de xixi</h2>
+        <div class="campo">
+          <label for="cfgXixi">Avisar para ir ao banheiro a cada:</label>
+          <select id="cfgXixi">
+            <option value="60">1 hora</option>
+            <option value="90">1 hora e 30 min</option>
+            <option value="120" selected>2 horas</option>
+            <option value="150">2 horas e 30 min</option>
+            <option value="180">3 horas</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="card-form">
+        <h2>💧 Lembrete de água</h2>
+        <div class="duas-col">
+          <div class="campo">
+            <label for="cfgAgua">Avisar a cada:</label>
+            <select id="cfgAgua">
+              <option value="30">30 min</option>
+              <option value="45">45 min</option>
+              <option value="60" selected>1 hora</option>
+              <option value="90">1 h 30 min</option>
+              <option value="120">2 horas</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="cfgMeta">Meta de copos/dia:</label>
+            <select id="cfgMeta">
+              <option value="4">4 copos</option>
+              <option value="5">5 copos</option>
+              <option value="6" selected>6 copos</option>
+              <option value="7">7 copos</option>
+              <option value="8">8 copos</option>
+              <option value="10">10 copos</option>
+            </select>
+          </div>
+        </div>
+        <p class="nota" style="margin-top:2px">Os avisos só tocam entre a hora de acordar e a de dormir. 😴</p>
+      </div>
+
+      <div id="setupGrupos"></div>
+      <button class="btn btn-primary" id="btnSetup">Salvar e começar 🚀</button>
+      <p class="nota">Você pode mudar tudo quando quiser na aba Ajustes. No começo de cada mês esta tela aparece para revisar.</p>
+    </div>
+  </section>
+
+  <!-- ================= TELA 3: INÍCIO ================= -->
+  <section class="tela" id="tela-rotina">
+    <div class="topo">
+      <div class="cenario"></div>
+      <div class="mascote"><span id="avatarHome">🐯</span><button class="lapis" id="btnAvatar" title="Personalizar personagem">✏️</button></div>
+    </div>
+    <div class="pad">
+      <div class="saudacao">
+        <h1 id="bannerTitulo">Minha Rotina!</h1>
+        <p id="bannerSub">Toque nas tarefas conforme for fazendo!</p>
+        <button class="kid-chip" id="kidChip">🧒 · trocar ▾</button>
+      </div>
+
+      <div class="painel">
+        <div class="painel-linhas">
+          <div class="painel-item">
+            <div class="pi-label">⭐ Estrelas</div>
+            <div class="pi-valor" id="piEstrelas">0</div>
+            <div class="pi-sub">hoje</div>
+          </div>
+          <div class="painel-item">
+            <div class="pi-label">💧 Copos</div>
+            <div class="pi-valor" id="piAgua">0/6</div>
+            <div class="pi-sub">de água</div>
+          </div>
+          <div class="painel-item">
+            <div class="pi-label">🚽 Xixi</div>
+            <div class="pi-valor" id="piXixi">0</div>
+            <div class="pi-sub">vezes hoje</div>
+          </div>
+        </div>
+        <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+        <div class="p-sub" id="pSub">Vamos começar o dia! ☀️</div>
+      </div>
+
+      <div class="lembretes">
+        <div class="lem-head">⏰ Próximos avisos</div>
+        <div class="lem-row agua" id="lemAgua">
+          <div class="lem-ico">💧</div>
+          <div class="lem-info">
+            <div class="lem-titulo">Beber água</div>
+            <div class="lem-tempo" id="lemAguaTempo">—</div>
+          </div>
+          <button class="lem-btn b-agua" id="btnBebi">Bebi! +1</button>
+        </div>
+        <div class="lem-row xixi" id="lemXixi">
+          <div class="lem-ico">🚽</div>
+          <div class="lem-info">
+            <div class="lem-titulo">Ir ao banheiro</div>
+            <div class="lem-tempo" id="lemXixiTempo">—</div>
+          </div>
+          <button class="lem-btn b-xixi" id="btnXixi">Fiz xixi ✓</button>
+        </div>
+        <div class="lem-row sono">
+          <div class="lem-ico">🛏️</div>
+          <div class="lem-info">
+            <div class="lem-titulo">Sono</div>
+            <div class="lem-tempo" id="lemSono">Acordar 07:00 · Dormir 20:30</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="semana">
+        <div class="semana-head">
+          <span>📅 Minha Semana · <b id="diaAtivoNome">Hoje</b></span>
+          <span class="semana-total" id="semanaTotal">0 ⭐</span>
+        </div>
+        <div class="semana-dias" id="semanaDias"></div>
+      </div>
+
+      <div id="periodos"></div>
+
+      <div class="congrats" id="congrats">
+        <span class="trophy">🏆</span>
+        <p id="congratsTxt">Parabéns! Você completou toda a rotina!</p>
+        <p class="small">Que dia incrível! Você é um herói / heroína! 💖</p>
+        <div style="font-size:34px;margin-top:12px">⭐ 🌟 ✨ 🌟 ⭐</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TELA 4: CUIDADOS ================= -->
+  <section class="tela" id="tela-cuidados">
+    <div class="topo mini"><div class="cenario"></div></div>
+    <div class="pad">
+      <div class="saudacao">
+        <h1>Cuidados de hoje 💚</h1>
+        <p id="cuidadosSub">Água e idas ao banheiro</p>
+      </div>
+
+      <div class="card-form">
+        <h2>💧 Água de hoje</h2>
+        <div class="gota-medidor">
+          <svg class="gota-svg" id="gotaSvg" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <clipPath id="gotaClip">
+                <path d="M60,8 C88,50 104,84 104,108 C104,134 84,152 60,152 C36,152 16,134 16,108 C16,84 32,50 60,8 Z"/>
+              </clipPath>
+            </defs>
+            <path class="gota-contorno" d="M60,8 C88,50 104,84 104,108 C104,134 84,152 60,152 C36,152 16,134 16,108 C16,84 32,50 60,8 Z"/>
+            <g clip-path="url(#gotaClip)">
+              <rect class="gota-nivel" id="gotaNivel" x="0" y="152" width="120" height="0"/>
+            </g>
+            <text class="gota-carinha" id="gotaCarinha" x="60" y="112" text-anchor="middle">💧</text>
+          </svg>
+        </div>
+        <div class="agua-meta-txt" id="aguaMetaTxt">0 de 6 copos</div>
+        <button class="btn-registro r-agua" id="btnBebi2">💧 Bebi um copo de água!</button>
+        <div class="hist-lista" id="aguaHist"></div>
+      </div>
+
+      <div class="card-form">
+        <h2>🚽 Xixi de hoje</h2>
+        <div class="rim-wrap">
+          <svg class="rim-svg" id="rimSvg" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+            <path class="rim-corpo" d="M75,10 C110,10 130,40 128,72 C126,104 100,128 70,126 C46,124 30,108 34,90 C38,74 50,68 48,52 C46,36 40,20 75,10 Z"/>
+          </svg>
+          <span class="rim-carinha" id="rimCarinha">😊</span>
+        </div>
+        <div class="rim-legenda" id="rimLegenda">Rinzinho tá tranquilo!</div>
+        <div class="stat-pills">
+          <div class="stat-pill"><div class="sp-v" id="xxTotal">0</div><div class="sp-l">vezes hoje</div></div>
+          <div class="stat-pill"><div class="sp-v" id="xxUltimo">—</div><div class="sp-l">último xixi</div></div>
+          <div class="stat-pill"><div class="sp-v" id="xxMedia">—</div><div class="sp-l">intervalo médio</div></div>
+        </div>
+        <button class="btn-registro r-xixi" id="btnXixi2">🚽 Fiz xixi agora!</button>
+        <div class="hist-lista" id="xixiHist"></div>
+        <p class="nota">Os registros ajudam no acompanhamento da saúde e do desfralte, e são enviados automaticamente para a equipe responsável. 🩺</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TELA 5: RELATÓRIO (área do profissional) ================= -->
+  <section class="tela" id="tela-relatorio">
+    <div class="topo mini"><div class="cenario"></div></div>
+    <div class="pad">
+      <div class="saudacao">
+        <h1>Relatório 📊</h1>
+        <p id="relSub">Área do profissional</p>
+      </div>
+
+      <div class="card-form" id="relSelCard" style="display:none">
+        <div class="campo">
+          <label for="relSel">Criança:</label>
+          <select id="relSel"></select>
+        </div>
+      </div>
+
+      <div class="card-form">
+        <h2>📅 Últimos dias</h2>
+        <div class="rel-head">
+          <span>Data</span><span>⭐ Tarefas</span><span>💧 Copos</span><span>🚽 Xixi</span><span>⏱ Interv. médio</span>
+        </div>
+        <div id="relTabela"></div>
+      </div>
+
+      <div class="card-form">
+        <h2>⬇️ Exportar dados</h2>
+        <p style="font-size:13px;color:var(--cinza);line-height:1.45">Baixe os dados em CSV para abrir no Excel ou Google Planilhas.</p>
+        <button class="btn-registro r-verde" id="btnCsvResumo">📄 Baixar resumo por dia (CSV)</button>
+        <button class="btn-registro r-agua" id="btnCsvDetalhe">🕐 Baixar todos os registros (CSV)</button>
+        <p class="nota">O resumo tem uma linha por dia. O detalhado tem cada copo de água, xixi e tarefa com horário.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TELA 6: CRIANÇAS ================= -->
+  <section class="tela" id="tela-criancas">
+    <div class="topo mini"><div class="cenario"></div></div>
+    <div class="pad">
+      <div class="saudacao">
+        <h1>Crianças 🧒</h1>
+        <p>Toque em uma criança para usar a rotina dela</p>
+      </div>
+      <div id="listaCriancas"></div>
+      <button class="btn btn-primary" id="btnAddCrianca">➕ Adicionar criança</button>
+      <p class="nota">Cada criança tem a própria rotina, horários, registros e personagem. Use ✏️ para mudar o nome.</p>
+    </div>
+  </section>
+
+  <!-- ================= TELA 7: AJUSTES ================= -->
+  <section class="tela" id="tela-ajustes">
+    <div class="topo mini"><div class="cenario"></div></div>
+    <div class="pad">
+      <div class="saudacao">
+        <h1>Ajustes ⚙️</h1>
+        <p id="ajustesSub">Configurações da rotina</p>
+      </div>
+      <div class="ajuste-item" id="ajEnviar">
+        <span class="aj-ico">☁️</span>
+        <div class="aj-txt"><b>Sincronização com a clínica</b><span id="ajEnviarSub">Os registros são enviados automaticamente</span></div>
+        <span class="aj-seta">›</span>
+      </div>
+      <div class="ajuste-item" id="ajCriancas">
+        <span class="aj-ico">🧒</span>
+        <div class="aj-txt"><b>Crianças</b><span id="ajCriancasSub">Trocar, renomear ou adicionar criança</span></div>
+        <span class="aj-seta">›</span>
+      </div>
+      <div class="ajuste-item" id="ajEditar">
+        <span class="aj-ico">✏️</span>
+        <div class="aj-txt"><b>Editar rotina e horários</b><span>Tarefas, sono, água e xixi</span></div>
+        <span class="aj-seta">›</span>
+      </div>
+      <div class="ajuste-item" id="ajNotif">
+        <span class="aj-ico">🔔</span>
+        <div class="aj-txt"><b>Ativar notificações</b><span id="ajNotifSub">Receba os avisos mesmo com o app em segundo plano</span></div>
+        <span class="aj-seta">›</span>
+      </div>
+      <div class="ajuste-item" id="ajLimpar">
+        <span class="aj-ico">🔄</span>
+        <div class="aj-txt"><b>Limpar o dia de hoje</b><span>Desmarca tarefas, água e xixi de hoje</span></div>
+        <span class="aj-seta">›</span>
+      </div>
+      <div class="ajuste-item" id="ajAdmin">
+        <span class="aj-ico">🔒</span>
+        <div class="aj-txt"><b>Área do profissional</b><span>Relatório completo — acesso com senha</span></div>
+        <span class="aj-seta">›</span>
+      </div>
+      <p class="nota">Feito com 💚 — os dados ficam salvos neste aparelho e também são enviados automaticamente para acompanhamento profissional.</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- Modal: escolher personagem -->
+<div class="modal-fundo" id="modalAvatar">
+  <div class="modal">
+    <h2>Escolha seu personagem! 🎨</h2>
+    <p class="m-sub">Toque no seu preferido</p>
+    <div class="avatar-grid" id="avatarGrid"></div>
+    <button class="btn btn-secundario" id="modalAvatarFechar">Fechar</button>
+  </div>
+</div>
+
+<!-- Modal: senha do profissional -->
+<div class="modal-fundo" id="modalPin">
+  <div class="modal">
+    <h2>🔒 Área do profissional</h2>
+    <p class="m-sub">Digite a senha para ver o relatório completo</p>
+    <div class="campo">
+      <input type="password" id="pinInput" inputmode="numeric" maxlength="8" placeholder="Senha" autocomplete="off">
+    </div>
+    <button class="btn btn-primary" id="pinOk" style="margin-bottom:8px">Entrar</button>
+    <button class="btn btn-secundario" id="pinCancel">Cancelar</button>
+  </div>
+</div>
+
+<!-- Aviso flutuante -->
+<div class="aviso-topo" id="avisoTopo">
+  <span class="av-emoji" id="avEmoji">💧</span>
+  <div class="av-txt"><b id="avTitulo">Hora de beber água!</b><span id="avMsg">Um copinho agora! 💪</span></div>
+  <button class="av-x" id="avFechar">✕</button>
+</div>
+
+<!-- Navegação inferior -->
+<nav class="navbar" id="navbar">
+  <div class="nav-in">
+    <button class="nav-item on" data-tela="tela-rotina"><span class="ni-ico">🏠</span><span class="ni-lbl">Início</span></button>
+    <button class="nav-item" data-tela="tela-cuidados"><span class="ni-ico">💧</span><span class="ni-lbl">Cuidados</span></button>
+    <button class="nav-item" data-tela="tela-ajustes"><span class="ni-ico">⚙️</span><span class="ni-lbl">Ajustes</span></button>
+  </div>
+</nav>
+
+<script>
+// ============================================================
+// ⚙️ CONFIGURAÇÃO DO PROFISSIONAL — edite ANTES de enviar o app
+// às famílias:
+//  - nome: aparece nos textos ("Enviar relatório para ...")
+//  - whatsapp: número com DDI+DDD, só dígitos (ex.: '5511999998888').
+//    Se ficar vazio, o app abre o WhatsApp e a família escolhe o contato.
+//  - pin: senha da Área do profissional (relatório completo + CSV)
+//  - planilhaUrl: URL do "Web app" do Google Apps Script (veja o guia de
+//    configuração enviado junto com o app). Enquanto estiver vazia, o app
+//    funciona normalmente mas não envia nada para a nuvem.
+// ============================================================
+const PROFISSIONAL = { nome:'Maria Vitória', whatsapp:'', pin:'1234', planilhaUrl:'' };
+
+// ===================== SINCRONIZAÇÃO AUTOMÁTICA (Google Sheets) =====================
+function sincronizarNuvem(tipo, detalhe){
+  if(!PROFISSIONAL.planilhaUrl) return;
+  const c=kidAtiva(); if(!c) return;
+  const payload={
+    data:hojeId(), hora:fmtHora(Date.now()),
+    crianca:c.nome, responsavel:c.responsavel, tipo, detalhe:detalhe||''
+  };
+  try{
+    fetch(PROFISSIONAL.planilhaUrl, {
+      method:'POST', mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify(payload)
+    });
+  }catch(e){}
+}
+
+// ===================== CENÁRIO (SVG desenhado) =====================
+const CENARIO_SVG = `
+<svg viewBox="0 0 400 210" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="gceu" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#79C9F2"/><stop offset="55%" stop-color="#C0E8FA"/><stop offset="100%" stop-color="#E8F7EC"/>
+    </linearGradient>
+    <style>
+      .nv1{animation:drift1 26s ease-in-out infinite alternate}
+      .nv2{animation:drift2 34s ease-in-out infinite alternate}
+      .borb{animation:flutua 4.5s ease-in-out infinite alternate}
+      @keyframes drift1{to{transform:translateX(24px)}}
+      @keyframes drift2{to{transform:translateX(-20px)}}
+      @keyframes flutua{to{transform:translateY(-9px)}}
+    </style>
+  </defs>
+  <rect width="400" height="210" fill="url(#gceu)"/>
+  <!-- sol -->
+  <g>
+    <circle cx="342" cy="44" r="36" fill="#FFE066" opacity=".3"/>
+    <g stroke="#FFD93D" stroke-width="3" stroke-linecap="round" opacity=".75">
+      <line x1="342" y1="14" x2="342" y2="5"/><line x1="342" y1="74" x2="342" y2="83"/>
+      <line x1="312" y1="44" x2="303" y2="44"/><line x1="372" y1="44" x2="381" y2="44"/>
+      <line x1="321" y1="23" x2="314" y2="16"/><line x1="363" y1="23" x2="370" y2="16"/>
+      <line x1="321" y1="65" x2="314" y2="72"/><line x1="363" y1="65" x2="370" y2="72"/>
+    </g>
+    <circle cx="342" cy="44" r="22" fill="#FFD93D"/>
+    <circle cx="335" cy="37" r="7" fill="#FFF3B0" opacity=".85"/>
+  </g>
+  <!-- arco-íris -->
+  <g fill="none" opacity=".85" stroke-linecap="round">
+    <path d="M40 158 A70 70 0 0 1 180 158" stroke="#FF8A80" stroke-width="8"/>
+    <path d="M48 158 A62 62 0 0 1 172 158" stroke="#FFC46B" stroke-width="8"/>
+    <path d="M56 158 A54 54 0 0 1 164 158" stroke="#FFE97F" stroke-width="8"/>
+    <path d="M64 158 A46 46 0 0 1 156 158" stroke="#9BDD8A" stroke-width="8"/>
+    <path d="M72 158 A38 38 0 0 1 148 158" stroke="#8FD3F4" stroke-width="8"/>
+    <path d="M80 158 A30 30 0 0 1 140 158" stroke="#C5AEE8" stroke-width="8"/>
+  </g>
+  <!-- nuvens -->
+  <g fill="#ffffff">
+    <g class="nv1" opacity=".96"><ellipse cx="70" cy="42" rx="27" ry="12"/><ellipse cx="91" cy="36" rx="18" ry="10"/><ellipse cx="51" cy="37" rx="14" ry="9"/></g>
+    <g class="nv2" opacity=".85"><ellipse cx="205" cy="28" rx="21" ry="9"/><ellipse cx="220" cy="22" rx="13" ry="7"/></g>
+    <g class="nv1" opacity=".65"><ellipse cx="278" cy="66" rx="17" ry="7"/></g>
+  </g>
+  <!-- passarinhos -->
+  <g stroke="#4A6B8A" stroke-width="2" fill="none" stroke-linecap="round">
+    <path d="M124 62 q5 -6 10 0 q5 -6 10 0"/>
+    <path d="M154 50 q4 -5 8 0 q4 -5 8 0"/>
+    <path d="M105 48 q3 -4 6 0 q3 -4 6 0"/>
+  </g>
+  <text x="238" y="92" font-size="15" class="borb">🦋</text>
+  <!-- morros em camadas -->
+  <path d="M0 142 Q90 94 190 128 Q290 158 400 112 L400 210 L0 210 Z" fill="#B7E098"/>
+  <path d="M0 166 Q70 116 170 152 Q250 178 400 148 L400 210 L0 210 Z" fill="#8FCC6F"/>
+  <!-- arbustos no morro -->
+  <g fill="#7FBF63">
+    <circle cx="230" cy="168" r="9"/><circle cx="243" cy="171" r="7"/>
+    <circle cx="120" cy="160" r="8"/><circle cx="132" cy="163" r="6"/>
+  </g>
+  <path d="M0 192 Q120 168 230 186 Q320 200 400 182 L400 210 L0 210 Z" fill="#79BC59"/>
+  <!-- árvore de maçãs -->
+  <g>
+    <rect x="34" y="132" width="8" height="22" rx="3" fill="#8B5E3C"/>
+    <circle cx="38" cy="119" r="18" fill="#5FA84E"/>
+    <circle cx="25" cy="128" r="12" fill="#6DB55B"/>
+    <circle cx="51" cy="127" r="12" fill="#6DB55B"/>
+    <circle cx="32" cy="114" r="3.2" fill="#E74C3C"/><circle cx="46" cy="122" r="3.2" fill="#E74C3C"/><circle cx="39" cy="130" r="3" fill="#E74C3C"/>
+  </g>
+  <!-- pinheiro -->
+  <g>
+    <rect x="356" y="144" width="7" height="15" rx="2" fill="#8B5E3C"/>
+    <path d="M360 100 L378 134 L342 134 Z" fill="#4E9A44"/>
+    <path d="M360 114 L382 150 L338 150 Z" fill="#5FA84E"/>
+  </g>
+  <!-- flores desenhadas -->
+  <g>
+    <g transform="translate(84,176)"><circle r="3.4" fill="#F17BA6"/><circle cx="-4.5" cy="-2" r="2.6" fill="#FBB1CC"/><circle cx="4.5" cy="-2" r="2.6" fill="#FBB1CC"/><circle cx="-3" cy="3.6" r="2.6" fill="#FBB1CC"/><circle cx="3" cy="3.6" r="2.6" fill="#FBB1CC"/><circle cx="0" cy="-4.6" r="2.6" fill="#FBB1CC"/><line x1="0" y1="5" x2="0" y2="13" stroke="#5FA84E" stroke-width="2"/></g>
+    <g transform="translate(300,180)"><circle r="3.4" fill="#FFB300"/><circle cx="-4.5" cy="-2" r="2.6" fill="#FFE97F"/><circle cx="4.5" cy="-2" r="2.6" fill="#FFE97F"/><circle cx="-3" cy="3.6" r="2.6" fill="#FFE97F"/><circle cx="3" cy="3.6" r="2.6" fill="#FFE97F"/><circle cx="0" cy="-4.6" r="2.6" fill="#FFE97F"/><line x1="0" y1="5" x2="0" y2="12" stroke="#5FA84E" stroke-width="2"/></g>
+    <g transform="translate(186,196)"><circle r="2.8" fill="#8FD3F4"/><circle cx="-3.8" cy="-1.6" r="2.2" fill="#C9E9FB"/><circle cx="3.8" cy="-1.6" r="2.2" fill="#C9E9FB"/><circle cx="-2.4" cy="3" r="2.2" fill="#C9E9FB"/><circle cx="2.4" cy="3" r="2.2" fill="#C9E9FB"/><circle cx="0" cy="-3.8" r="2.2" fill="#C9E9FB"/></g>
+  </g>
+  <!-- capim -->
+  <g stroke="#5FA84E" stroke-width="2" stroke-linecap="round">
+    <path d="M110 200 v-8 M114 200 v-6 M118 200 v-9"/>
+    <path d="M260 202 v-8 M264 202 v-6 M268 202 v-9"/>
+    <path d="M340 196 v-7 M344 196 v-5"/>
+  </g>
+</svg>`;
+document.querySelectorAll('.cenario').forEach(c=>{ c.innerHTML=CENARIO_SVG; });
+
+// ===================== PERSONAGENS =====================
+const AVATARES=['🐯','🦁','🐰','🐼','🐨','🐶','🐱','🦊','🐸','🦄','🐷','🐵','🐻','🐥','🐮','🐙','🦖','🦕','🐬','🦉','👧','👦','🧒','🤖','🦸'];
+
+// ===================== BIBLIOTECA DE TAREFAS =====================
+const BIBLIOTECA = [
+  {periodo:'manha', emoji:'🌅', nome:'Acordar', padrao:true},
+  {periodo:'manha', emoji:'🪥', nome:'Escovar os dentes', padrao:true},
+  {periodo:'manha', emoji:'🧼', nome:'Lavar o rosto'},
+  {periodo:'manha', emoji:'🥞', nome:'Café da manhã', padrao:true},
+  {periodo:'manha', emoji:'👕', nome:'Trocar de roupa', padrao:true},
+  {periodo:'manha', emoji:'💇', nome:'Pentear o cabelo'},
+  {periodo:'manha', emoji:'🚽', nome:'Ir ao banheiro'},
+  {periodo:'manha', emoji:'💊', nome:'Tomar remédio'},
+  {periodo:'manha', emoji:'💪', nome:'Terapias / exercícios'},
+  {periodo:'manha', emoji:'🎒', nome:'Arrumar a mochila'},
+  {periodo:'tarde', emoji:'🍽️', nome:'Almoço', padrao:true},
+  {periodo:'tarde', emoji:'🏫', nome:'Escola', padrao:true},
+  {periodo:'tarde', emoji:'📚', nome:'Lição de casa'},
+  {periodo:'tarde', emoji:'😴', nome:'Descansar / soninho'},
+  {periodo:'tarde', emoji:'🧸', nome:'Brincar'},
+  {periodo:'tarde', emoji:'⚽', nome:'Atividade física'},
+  {periodo:'tarde', emoji:'💃', nome:'Aula extra (dança/música)'},
+  {periodo:'tarde', emoji:'🍎', nome:'Lanche da tarde'},
+  {periodo:'tarde', emoji:'🧹', nome:'Guardar os brinquedos'},
+  {periodo:'noite', emoji:'🍝', nome:'Jantar', padrao:true},
+  {periodo:'noite', emoji:'🛁', nome:'Banho', padrao:true},
+  {periodo:'noite', emoji:'🪥', nome:'Escovar os dentes (noite)', padrao:true},
+  {periodo:'noite', emoji:'👚', nome:'Separar a roupa de amanhã'},
+  {periodo:'noite', emoji:'📖', nome:'Ler uma história'},
+  {periodo:'noite', emoji:'💊', nome:'Tomar remédio (noite)'},
+  {periodo:'noite', emoji:'🫂', nome:'Tempo em família'},
+  {periodo:'noite', emoji:'📵', nome:'Desligar a TV/tablet'},
+  {periodo:'noite', emoji:'😴', nome:'Dormir', padrao:true},
+];
+const EMOJIS_EXTRA = ['⭐','🌞','🧩','🎨','🎵','🐶','🌷','🦷','🚲','🍌','🥦','📝','🧴','🛏️','🙏','🧘'];
+const NOMES_PERIODO = {manha:'☀️ Manhã', tarde:'🌤️ Tarde', noite:'🌙 Noite'};
+
+// ===================== CHAVES / HELPERS =====================
+const K_KIDS='rotina-mv-kids';
+const B_ROTINA='rotina-mv-rotina', B_CONFIG='rotina-mv-config', B_CUIDADOS='rotina-mv-cuidados',
+      B_SEMANA='rotina-mv-semana', B_HIST='rotina-mv-hist';
+const CONFIG_PADRAO = {acordar:'07:00', dormir:'20:30', xixiMin:120, aguaMin:60, aguaMeta:6};
+
+function lerJSON(k){ try{ return JSON.parse(localStorage.getItem(k)||'null'); }catch(e){ return null; } }
+function salvarJSON(k,v){ localStorage.setItem(k, JSON.stringify(v)); }
+function mesId(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); }
+function hojeId(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function slug(s){ return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); }
+function fmtHora(ts){ const d=new Date(ts); return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); }
+function fmtDataBr(iso){ return iso.slice(8,10)+'/'+iso.slice(5,7); }
+function fmtDur(min){
+  min=Math.round(min);
+  if(min<1) return 'agora';
+  if(min<60) return min+' min';
+  const h=Math.floor(min/60), m=min%60;
+  return m? h+'h'+String(m).padStart(2,'0') : h+'h';
+}
+
+// ===================== CRIANÇAS (perfis) =====================
+let kids = carregarKids();   // {ativa:id, lista:[{id,nome,responsavel,avatar,criadoEm}]}
+let rotina=null, config=Object.assign({},CONFIG_PADRAO), cuidados=null, hist={}, estadoSemana=null;
+let avisadoAgua=0, avisadoXixi=0;
+let total=0, done=0;
+let relKidId=null;
+
+function carregarKids(){
+  const k=lerJSON(K_KIDS);
+  if(k && Array.isArray(k.lista) && k.lista.length) return k;
+  const old=lerJSON('rotina-mv-perfil');
+  if(old && old.consent){
+    const id='c'+Date.now().toString(36);
+    const novo={ativa:id, lista:[{id, nome:old.crianca, responsavel:old.responsavel, avatar:'🐯', criadoEm:old.criadoEm||new Date().toISOString()}]};
+    const mapa={'rotina-mv-rotina':B_ROTINA+'-'+id, 'rotina-mv-config':B_CONFIG+'-'+id,
+                'rotina-mv-cuidados':B_CUIDADOS+'-'+id, 'rotina-mv':B_SEMANA+'-'+id};
+    Object.entries(mapa).forEach(([o,n])=>{ const v=localStorage.getItem(o); if(v){ localStorage.setItem(n,v); localStorage.removeItem(o); } });
+    localStorage.removeItem('rotina-mv-perfil');
+    salvarJSON(K_KIDS, novo);
+    return novo;
+  }
+  return null;
+}
+function kidAtiva(){ return kids ? kids.lista.find(c=>c.id===kids.ativa) : null; }
+function primeiroNome(){ const c=kidAtiva(); return c? c.nome.split(' ')[0] : ''; }
+function avatarAtivo(){ const c=kidAtiva(); return (c&&c.avatar)||'🐯'; }
+function kkey(base){ return base+'-'+kids.ativa; }
+
+function carregarEstadoCrianca(){
+  rotina=lerJSON(kkey(B_ROTINA));
+  config=Object.assign({}, CONFIG_PADRAO, lerJSON(kkey(B_CONFIG))||{});
+  cuidados=carregarCuidados();
+  hist=lerJSON(kkey(B_HIST))||{};
+  avisadoAgua=0; avisadoXixi=0;
+}
+
+function carregarCuidados(){
+  const c=lerJSON(kkey(B_CUIDADOS));
+  if(c && c.data===hojeId() && Array.isArray(c.agua) && Array.isArray(c.xixi)) return c;
+  return {data:hojeId(), agua:[], xixi:[]};
+}
+function salvarCuidados(){ salvarJSON(kkey(B_CUIDADOS), cuidados); }
+function checarViradaDia(){
+  if(cuidados.data!==hojeId()){ cuidados=carregarCuidados(); salvarCuidados(); renderCuidados(); }
+}
+
+// ===================== HISTÓRICO =====================
+function histDia(){
+  const d=hojeId();
+  if(!hist[d]) hist[d]={agua:[],xixi:[],tarefas:[],totalTarefas:0};
+  if(rotina && rotina.tarefas) hist[d].totalTarefas=rotina.tarefas.length;
+  return hist[d];
+}
+function salvarHist(){
+  const chaves=Object.keys(hist).sort();
+  while(chaves.length>180) delete hist[chaves.shift()];
+  salvarJSON(kkey(B_HIST), hist);
+}
+function histDe(id){ return lerJSON(B_HIST+'-'+id)||{}; }
+
+// ===================== HORÁRIOS =====================
+function horaHoje(hhmm){ const [h,m]=hhmm.split(':').map(Number); const d=new Date(); d.setHours(h,m,0,0); return d; }
+function janelaAcordado(){
+  const ini=horaHoje(config.acordar); let fim=horaHoje(config.dormir);
+  if(fim<=ini) fim=new Date(fim.getTime()+24*3600*1000);
+  return {ini,fim};
+}
+function estaAcordada(){ const now=new Date(), j=janelaAcordado(); return now>=j.ini && now<j.fim; }
+
+// ===================== NAVEGAÇÃO =====================
+const APP_TELAS=['tela-rotina','tela-cuidados','tela-relatorio','tela-ajustes','tela-criancas'];
+function mostrarTela(id){
+  document.querySelectorAll('.tela').forEach(t=>t.classList.remove('ativa'));
+  document.getElementById(id).classList.add('ativa');
+  document.getElementById('navbar').style.display = APP_TELAS.includes(id) ? 'flex' : 'none';
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('on', n.dataset.tela===id));
+  window.scrollTo({top:0,behavior:'instant'});
+}
+document.querySelectorAll('.nav-item').forEach(n=>{
+  n.addEventListener('click',()=>{
+    mostrarTela(n.dataset.tela);
+    if(n.dataset.tela==='tela-cuidados') renderCuidados();
+  });
+});
+
+function rotear(){
+  if(!kids || !kids.lista.length){ prepCadastro(); mostrarTela('tela-cadastro'); return; }
+  if(!rotina || !rotina.tarefas || !rotina.tarefas.length || rotina.setupMes!==mesId()){ abrirSetup(); return; }
+  iniciarRotina();
+}
+
+// ===================== TELA 1: CADASTRO =====================
+const inResp=document.getElementById('inResp'), inCri=document.getElementById('inCrianca'),
+      inCons=document.getElementById('inConsent'), btnCad=document.getElementById('btnCadastro');
+function validaCad(){ btnCad.disabled = !(inResp.value.trim() && inCri.value.trim() && inCons.checked); }
+[inResp,inCri].forEach(e=>e.addEventListener('input',validaCad));
+inCons.addEventListener('change',validaCad);
+
+function prepCadastro(){
+  const temKids = kids && kids.lista.length;
+  inResp.value = temKids ? (kids.lista[0].responsavel||'') : '';
+  inCri.value=''; inCons.checked=false; validaCad();
+  document.getElementById('cadTitulo').textContent = temKids ? 'Nova criança 🧒' : 'Bem-vindo(a)! 🌈';
+  document.getElementById('cadSub').textContent = temKids ? 'Adicione mais uma criança à rotina' : 'Vamos montar a rotina do seu filho(a)';
+  document.getElementById('btnCadVoltar').style.display = temKids ? 'block' : 'none';
+}
+document.getElementById('btnCadVoltar').addEventListener('click',()=>{ renderCriancas(); mostrarTela('tela-criancas'); });
+
+btnCad.addEventListener('click',()=>{
+  const id='c'+Date.now().toString(36);
+  const kid={id, nome:inCri.value.trim(), responsavel:inResp.value.trim(), avatar:'🐯', criadoEm:new Date().toISOString()};
+  if(!kids) kids={ativa:id, lista:[]};
+  kids.lista.push(kid); kids.ativa=id;
+  salvarJSON(K_KIDS, kids);
+  carregarEstadoCrianca();
+  sincronizarNuvem('Cadastro', kid.responsavel+' cadastrou '+kid.nome);
+  abrirSetup();
+});
+
+// ===================== PERSONAGEM (avatar) =====================
+function abrirModalAvatar(){
+  const grid=document.getElementById('avatarGrid'); grid.innerHTML='';
+  const atual=avatarAtivo();
+  AVATARES.forEach(av=>{
+    const b=document.createElement('button');
+    b.className='avatar-op'+(av===atual?' sel':''); b.textContent=av;
+    b.addEventListener('click',()=>{
+      const c=kidAtiva(); if(!c) return;
+      c.avatar=av; salvarJSON(K_KIDS,kids);
+      aplicarAvatar();
+      document.getElementById('modalAvatar').classList.remove('show');
+      showToast(av+' Personagem escolhido!');
+    });
+    grid.appendChild(b);
+  });
+  document.getElementById('modalAvatar').classList.add('show');
+}
+function aplicarAvatar(){
+  document.getElementById('avatarHome').textContent=avatarAtivo();
+  const c=kidAtiva();
+  if(c) document.getElementById('kidChip').textContent=avatarAtivo()+' '+c.nome.split(' ')[0]+' · trocar ▾';
+}
+document.getElementById('btnAvatar').addEventListener('click',abrirModalAvatar);
+document.getElementById('modalAvatarFechar').addEventListener('click',()=>document.getElementById('modalAvatar').classList.remove('show'));
+
+// ===================== TELA CRIANÇAS =====================
+function renderCriancas(){
+  const cont=document.getElementById('listaCriancas'); cont.innerHTML='';
+  kids.lista.forEach(c=>{
+    const ativa = c.id===kids.ativa;
+    const row=document.createElement('div');
+    row.className='ajuste-item'+(ativa?' kid-ativa':'');
+    row.innerHTML=`<span class="aj-ico">${c.avatar||'🧒'}</span>
+      <div class="aj-txt"><b>${c.nome}</b><span>desde ${c.criadoEm.slice(8,10)}/${c.criadoEm.slice(5,7)}/${c.criadoEm.slice(0,4)}</span></div>
+      ${ativa?'<span class="kid-badge">ativa</span>':''}
+      <button class="kid-acao" data-ren="${c.id}" title="Renomear">✏️</button>
+      <button class="kid-acao" data-del="${c.id}" title="Excluir">🗑️</button>`;
+    row.addEventListener('click',e=>{
+      if(e.target.dataset.ren){ renomearCrianca(e.target.dataset.ren); return; }
+      if(e.target.dataset.del){ excluirCrianca(e.target.dataset.del); return; }
+      if(!ativa){ trocarCrianca(c.id); } else { mostrarTela('tela-rotina'); }
+    });
+    cont.appendChild(row);
+  });
+}
+function trocarCrianca(id){
+  kids.ativa=id; salvarJSON(K_KIDS,kids);
+  carregarEstadoCrianca();
+  showToast('Agora é a vez de '+primeiroNome()+'! 🌟');
+  rotear();
+}
+function renomearCrianca(id){
+  const c=kids.lista.find(x=>x.id===id); if(!c) return;
+  const novo=prompt('Novo nome da criança:', c.nome);
+  if(!novo || !novo.trim()) return;
+  c.nome=novo.trim(); salvarJSON(K_KIDS,kids);
+  renderCriancas();
+  if(id===kids.ativa && rotina && rotina.tarefas && rotina.tarefas.length) atualizarTextosNome();
+  showToast('Nome atualizado! ✏️');
+}
+function excluirCrianca(id){
+  const c=kids.lista.find(x=>x.id===id); if(!c) return;
+  if(!confirm('Excluir '+c.nome+' e TODOS os registros dela? Essa ação não tem volta.')) return;
+  [B_ROTINA,B_CONFIG,B_CUIDADOS,B_SEMANA,B_HIST].forEach(b=>localStorage.removeItem(b+'-'+id));
+  kids.lista=kids.lista.filter(x=>x.id!==id);
+  if(!kids.lista.length){
+    localStorage.removeItem(K_KIDS); kids=null;
+    prepCadastro(); mostrarTela('tela-cadastro'); return;
+  }
+  if(kids.ativa===id){ kids.ativa=kids.lista[0].id; salvarJSON(K_KIDS,kids); carregarEstadoCrianca(); rotear(); }
+  else salvarJSON(K_KIDS,kids);
+  renderCriancas();
+}
+document.getElementById('btnAddCrianca').addEventListener('click',()=>{ prepCadastro(); mostrarTela('tela-cadastro'); });
+document.getElementById('kidChip').addEventListener('click',()=>{ renderCriancas(); mostrarTela('tela-criancas'); });
+document.getElementById('ajCriancas').addEventListener('click',()=>{ renderCriancas(); mostrarTela('tela-criancas'); });
+
+// ===================== TELA 2: PERSONALIZAR =====================
+let selecionadas = [];
+let addEmojiSel = {};
+
+function abrirSetup(){
+  if(rotina && rotina.tarefas && rotina.tarefas.length){
+    selecionadas = rotina.tarefas.map(t=>({...t}));
+  }else{
+    selecionadas = BIBLIOTECA.filter(t=>t.padrao).map(t=>({id:slug(t.periodo+'-'+t.nome),periodo:t.periodo,emoji:t.emoji,nome:t.nome}));
+  }
+  document.getElementById('cfgAcordar').value=config.acordar;
+  document.getElementById('cfgDormir').value=config.dormir;
+  document.getElementById('cfgXixi').value=String(config.xixiMin);
+  document.getElementById('cfgAgua').value=String(config.aguaMin);
+  document.getElementById('cfgMeta').value=String(config.aguaMeta);
+  const jaTem = rotina&&rotina.tarefas&&rotina.tarefas.length;
+  document.getElementById('setupTitulo').textContent = 'Rotina de '+primeiroNome()+' 🌟';
+  document.getElementById('setupSub').textContent = jaTem ? 'Confira e ajuste os horários e as tarefas' : 'Escolha os horários e as tarefas do dia';
+  renderSetup();
+  mostrarTela('tela-setup');
+}
+
+function estaSelecionada(id){ return selecionadas.some(s=>s.id===id); }
+function toggleSel(t){
+  const id=t.id;
+  if(estaSelecionada(id)) selecionadas=selecionadas.filter(s=>s.id!==id);
+  else selecionadas.push({id,periodo:t.periodo,emoji:t.emoji,nome:t.nome});
+  renderSetup();
+}
+
+function renderSetup(){
+  const cont=document.getElementById('setupGrupos'); cont.innerHTML='';
+  ['manha','tarde','noite'].forEach(per=>{
+    const grupo=document.createElement('div'); grupo.className='setup-grupo '+per;
+    const daBib=BIBLIOTECA.filter(t=>t.periodo===per).map(t=>({id:slug(per+'-'+t.nome),periodo:per,emoji:t.emoji,nome:t.nome}));
+    const personalizadas=selecionadas.filter(s=>s.periodo===per && !daBib.some(b=>b.id===s.id));
+    const todas=[...daBib, ...personalizadas];
+    let chips='';
+    todas.forEach(t=>{
+      const on=estaSelecionada(t.id);
+      const ehCustom=personalizadas.some(p=>p.id===t.id);
+      chips+=`<div class="chip ${on?'on':''}" data-id="${t.id}" data-per="${per}" data-emoji="${t.emoji}" data-nome="${t.nome.replace(/"/g,'&quot;')}">
+        <span class="ce">${t.emoji}</span>${t.nome}${ehCustom?'<span class="rm" data-rm="'+t.id+'">✕</span>':''}</div>`;
+    });
+    grupo.innerHTML=`<h3>${NOMES_PERIODO[per]}</h3><div class="chips">${chips}</div>
+      <div class="add-bloco">
+        <div class="add-row">
+          <input type="text" placeholder="Nova tarefa…" data-addnome="${per}">
+          <button class="add-btn" data-add="${per}">Adicionar</button>
+        </div>
+        <div class="emoji-pick" data-emojis="${per}"></div>
+      </div>`;
+    cont.appendChild(grupo);
+  });
+  cont.querySelectorAll('.chip').forEach(ch=>{
+    ch.addEventListener('click',e=>{
+      if(e.target.dataset.rm){ selecionadas=selecionadas.filter(s=>s.id!==e.target.dataset.rm); renderSetup(); return; }
+      toggleSel({id:ch.dataset.id,periodo:ch.dataset.per,emoji:ch.dataset.emoji,nome:ch.dataset.nome});
+    });
+  });
+  cont.querySelectorAll('.emoji-pick').forEach(ep=>{
+    const per=ep.dataset.emojis;
+    EMOJIS_EXTRA.forEach(em=>{
+      const s=document.createElement('span'); s.textContent=em;
+      if(addEmojiSel[per]===em) s.classList.add('sel');
+      s.addEventListener('click',()=>{ addEmojiSel[per]=em; renderSetup(); });
+      ep.appendChild(s);
+    });
+  });
+  cont.querySelectorAll('[data-add]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const per=b.dataset.add;
+      const inp=cont.querySelector(`[data-addnome="${per}"]`);
+      const nome=inp.value.trim(); if(!nome) return;
+      const emoji=addEmojiSel[per]||'⭐';
+      const id=slug(per+'-'+nome)+'-c'+Date.now().toString().slice(-4);
+      selecionadas.push({id,periodo:per,emoji,nome});
+      addEmojiSel[per]=null; renderSetup();
+    });
+  });
+}
+
+document.getElementById('btnSetup').addEventListener('click',()=>{
+  if(!selecionadas.length){ alert('Escolha pelo menos uma tarefa.'); return; }
+  config={
+    acordar: document.getElementById('cfgAcordar').value || '07:00',
+    dormir:  document.getElementById('cfgDormir').value  || '20:30',
+    xixiMin: parseInt(document.getElementById('cfgXixi').value,10),
+    aguaMin: parseInt(document.getElementById('cfgAgua').value,10),
+    aguaMeta:parseInt(document.getElementById('cfgMeta').value,10),
+  };
+  salvarJSON(kkey(B_CONFIG), config);
+  const ordem={manha:0,tarde:1,noite:2};
+  const tarefas=[...selecionadas].sort((a,b)=>ordem[a.periodo]-ordem[b.periodo]);
+  rotina={tarefas, setupMes:mesId()};
+  salvarJSON(kkey(B_ROTINA), rotina);
+  avisadoAgua=0; avisadoXixi=0;
+  iniciarRotina();
+});
+
+// ===================== SEMANA / ESTRELAS =====================
+const DIAS_LABEL=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+const DIAS_FULL=['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
+function diaDeHojeIdx(){ const d=new Date().getDay(); return d===0?6:d-1; }
+function vazias(){ return [[],[],[],[],[],[],[]]; }
+function fmtLocal(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function semanaId(){ const d=new Date(); d.setDate(d.getDate()-diaDeHojeIdx()); return fmtLocal(d); }
+const diaAtivo=diaDeHojeIdx();
+
+function carregarSemana(){
+  const s=lerJSON(kkey(B_SEMANA));
+  if(s && s.semana===semanaId() && Array.isArray(s.dias) && s.dias.length===7)
+    return {semana:s.semana, dias:s.dias.map(a=>Array.isArray(a)?a:[])};
+  return {semana:semanaId(), dias:vazias()};
+}
+function salvarSemana(){ estadoSemana.semana=semanaId(); salvarJSON(kkey(B_SEMANA), estadoSemana); }
+
+function spawnStars(el){
+  const wrapEl=document.querySelector('.wrap'); const w=wrapEl.getBoundingClientRect(); const r=el.getBoundingClientRect();
+  for(let i=0;i<7;i++){ const s=document.createElement('span'); s.className='confetti-star';
+    s.textContent=['⭐','🌟','✨','💫'][Math.floor(Math.random()*4)];
+    s.style.left=(r.left-w.left+Math.random()*r.width)+'px'; s.style.top=(r.top-w.top+window.scrollY)+'px';
+    s.style.animationDelay=(i*0.06)+'s'; wrapEl.appendChild(s); setTimeout(()=>s.remove(),1300); }
+}
+function showToast(m){ const t=document.createElement('div'); t.className='toast'; t.textContent=m; document.body.appendChild(t); setTimeout(()=>t.remove(),1600); }
+const frasesBoas=['Arrasou! ⭐','Que demais!','Mandou bem!','Incrível!','Show de bola!','Parabéns!','Muito bem!','Uhuuu! 🎉'];
+
+function renderSemana(){
+  const cont=document.getElementById('semanaDias'); cont.innerHTML=''; let tot=0;
+  for(let i=0;i<7;i++){
+    const qtd=estadoSemana.dias[i].length; tot+=qtd;
+    const el=document.createElement('div');
+    el.className='dia'+(i===diaAtivo?' hoje':'')+(qtd>=total&&total>0?' cheio':'');
+    el.innerHTML=`<div class="dlabel">${DIAS_LABEL[i]}</div><div class="dnum">${qtd}</div>
+      <div class="dstar">${i===diaAtivo?'📍':(qtd>0?'⭐':'·')}</div>`;
+    cont.appendChild(el);
+  }
+  document.getElementById('semanaTotal').textContent=tot+' ⭐';
+  document.getElementById('diaAtivoNome').textContent=DIAS_FULL[diaAtivo];
+}
+function updateProgress(){
+  document.getElementById('progressBar').style.width=(total?Math.round(done/total*100):0)+'%';
+  document.getElementById('piEstrelas').textContent=done;
+  if(done===total && total>0){
+    document.getElementById('congrats').classList.add('show');
+    document.getElementById('pSub').textContent='Rotina completa! Você é incrível! 🌟';
+  }else{
+    document.getElementById('congrats').classList.remove('show');
+    const r=total-done;
+    document.getElementById('pSub').textContent = done===0
+      ? 'Vamos começar! Toque nas tarefas conforme for fazendo. ☀️'
+      : r+' tarefa'+(r!==1?'s':'')+' faltando — vai lá! 💪';
+  }
+}
+function recompute(){ done=document.querySelectorAll('#periodos .card.done').length; updateProgress(); renderSemana(); }
+
+function buildPeriodos(){
+  const cont=document.getElementById('periodos'); cont.innerHTML='';
+  const horasPer={manha:'🌅 '+config.acordar, tarde:'', noite:'🌙 '+config.dormir};
+  ['manha','tarde','noite'].forEach(per=>{
+    const lista=rotina.tarefas.filter(t=>t.periodo===per);
+    if(!lista.length) return;
+    const bloco=document.createElement('div'); bloco.className='periodo';
+    const hora=horasPer[per]?`<span class="periodo-hora">${horasPer[per]}</span>`:'';
+    bloco.innerHTML=`<div class="periodo-label ${per}">${NOMES_PERIODO[per]} ${hora}</div><div class="cards-grid"></div>`;
+    const grid=bloco.querySelector('.cards-grid');
+    lista.forEach(t=>{
+      const card=document.createElement('div'); card.className=`card ${per}-card`; card.dataset.id=t.id;
+      card.innerHTML=`<span class="ilust">${t.emoji}</span><div class="nome">${t.nome}</div><div class="check">✓</div>`;
+      card.addEventListener('click',()=>{
+        const arr=estadoSemana.dias[diaAtivo];
+        const h=histDia();
+        if(card.classList.contains('done')){
+          card.classList.remove('done');
+          estadoSemana.dias[diaAtivo]=arr.filter(x=>x!==t.id);
+          h.tarefas=h.tarefas.filter(x=>x.id!==t.id);
+        }else{
+          card.classList.add('done');
+          if(!arr.includes(t.id)) arr.push(t.id);
+          h.tarefas.push({id:t.id, nome:t.nome, ts:Date.now()});
+          spawnStars(card); showToast(frasesBoas[Math.floor(Math.random()*frasesBoas.length)]);
+          sincronizarNuvem('Tarefa', t.nome);
+        }
+        salvarSemana(); salvarHist(); recompute();
+      });
+      grid.appendChild(card);
+    });
+    cont.appendChild(bloco);
+  });
+}
+function aplicarDia(){
+  const arr=estadoSemana.dias[diaAtivo];
+  document.querySelectorAll('#periodos .card').forEach(c=>c.classList.toggle('done', arr.includes(c.dataset.id)));
+  recompute();
+}
+
+// ===================== ÁGUA E XIXI =====================
+function registrarAgua(){
+  checarViradaDia();
+  const ts=Date.now();
+  cuidados.agua.push(ts); histDia().agua.push(ts);
+  salvarCuidados(); salvarHist(); avisadoAgua=0;
+  showToast('💧 Mais um copo! '+frasesBoas[Math.floor(Math.random()*frasesBoas.length)]);
+  fecharAviso(); renderCuidados(); atualizarLembretes();
+  const svgGota=document.getElementById('gotaSvg');
+  svgGota.classList.remove('pop'); void svgGota.offsetWidth; svgGota.classList.add('pop');
+  sincronizarNuvem('Agua', 'copo de água');
+}
+function registrarXixi(){
+  checarViradaDia();
+  const ts=Date.now();
+  cuidados.xixi.push(ts); histDia().xixi.push(ts);
+  salvarCuidados(); salvarHist(); avisadoXixi=0;
+  showToast('🚽 Registrado! Muito bem!');
+  fecharAviso(); renderCuidados(); atualizarLembretes();
+  const svgRim=document.getElementById('rimSvg');
+  svgRim.classList.remove('apertado'); svgRim.style.transform='scale(1.12)';
+  setTimeout(()=>{ svgRim.style.transform=''; }, 350);
+  sincronizarNuvem('Xixi', '');
+}
+document.getElementById('btnBebi').addEventListener('click',registrarAgua);
+document.getElementById('btnBebi2').addEventListener('click',registrarAgua);
+document.getElementById('btnXixi').addEventListener('click',registrarXixi);
+document.getElementById('btnXixi2').addEventListener('click',registrarXixi);
+
+function renderCuidados(){
+  document.getElementById('cuidadosSub').textContent='Água e banheiro de '+primeiroNome();
+  const meta=config.aguaMeta, qtd=cuidados.agua.length;
+  const pct=Math.min(1, qtd/meta);
+  const alturaMax=144;
+  const nivel=document.getElementById('gotaNivel');
+  nivel.setAttribute('y', 152-alturaMax*pct);
+  nivel.setAttribute('height', alturaMax*pct);
+  nivel.classList.toggle('cheia', qtd>=meta);
+  document.getElementById('gotaCarinha').textContent = qtd===0 ? '💧' : qtd>=meta ? '😄' : '🙂';
+  document.getElementById('gotaSvg').style.transform = 'scale('+(0.82+0.33*Math.min(1.15, qtd/meta))+')';
+  document.getElementById('aguaMetaTxt').textContent =
+    qtd>=meta ? `Meta batida! ${qtd} copos hoje 🎉` : `${qtd} de ${meta} copos`;
+  montaHistorico('aguaHist', cuidados.agua, 'agua');
+  const x=cuidados.xixi;
+  document.getElementById('xxTotal').textContent=x.length;
+  document.getElementById('xxUltimo').textContent = x.length? fmtHora(x[x.length-1]) : '—';
+  if(x.length>=2){
+    let soma=0; for(let i=1;i<x.length;i++) soma+=x[i]-x[i-1];
+    document.getElementById('xxMedia').textContent = fmtDur(soma/(x.length-1)/60000);
+  }else document.getElementById('xxMedia').textContent='—';
+  montaHistorico('xixiHist', x, 'xixi');
+  document.getElementById('piAgua').textContent = qtd+'/'+meta;
+  document.getElementById('piXixi').textContent = x.length;
+}
+
+function montaHistorico(elId, arr, tipo){
+  const el=document.getElementById(elId); el.innerHTML='';
+  if(!arr.length){ el.innerHTML='<div class="hist-vazio">Nenhum registro hoje ainda.</div>'; return; }
+  const ult=[...arr].map((ts,i)=>({ts,i})).reverse().slice(0,8);
+  ult.forEach(({ts,i})=>{
+    const row=document.createElement('div'); row.className='hist-item';
+    const gap = i>0 ? fmtDur((ts-arr[i-1])/60000)+' depois do anterior' : 'primeiro do dia';
+    row.innerHTML=`<span class="h-hora">${fmtHora(ts)}</span><span class="h-gap">${tipo==='agua'?'💧':'🚽'} ${gap}</span>
+      <button class="h-del" title="Apagar" data-i="${i}">✕</button>`;
+    row.querySelector('.h-del').addEventListener('click',()=>{
+      arr.splice(i,1);
+      const h=histDia();
+      const lista = tipo==='agua'? h.agua : h.xixi;
+      const idx=lista.indexOf(ts); if(idx>-1) lista.splice(idx,1);
+      salvarCuidados(); salvarHist(); renderCuidados(); atualizarLembretes();
+    });
+    el.appendChild(row);
+  });
+}
+
+// ===================== RELATÓRIO (área do profissional) =====================
+function statsDia(h){
+  const x=h.xixi||[];
+  let media='';
+  if(x.length>=2){ let soma=0; for(let i=1;i<x.length;i++) soma+=x[i]-x[i-1]; media=Math.round(soma/(x.length-1)/60000); }
+  return {
+    tarefas:(h.tarefas||[]).length, totalTarefas:h.totalTarefas||0,
+    copos:(h.agua||[]).length, xixis:x.length,
+    mediaMin:media,
+    primeiroXixi:x.length?fmtHora(x[0]):'', ultimoXixi:x.length?fmtHora(x[x.length-1]):''
+  };
+}
+function relKid(){ return kids.lista.find(c=>c.id===relKidId) || kidAtiva(); }
+function renderRelatorio(){
+  if(!relKidId || !kids.lista.some(c=>c.id===relKidId)) relKidId=kids.ativa;
+  // seletor de criança (aparece se houver mais de uma)
+  const selCard=document.getElementById('relSelCard'), sel=document.getElementById('relSel');
+  if(kids.lista.length>1){
+    selCard.style.display='block';
+    sel.innerHTML='';
+    kids.lista.forEach(c=>{
+      const op=document.createElement('option');
+      op.value=c.id; op.textContent=(c.avatar||'🧒')+' '+c.nome;
+      if(c.id===relKidId) op.selected=true;
+      sel.appendChild(op);
+    });
+  } else selCard.style.display='none';
+
+  const c=relKid();
+  document.getElementById('relSub').textContent='Dados de '+c.nome;
+  const dados=histDe(c.id);
+  const tab=document.getElementById('relTabela'); tab.innerHTML='';
+  const dias=Object.keys(dados).sort().reverse();
+  if(!dias.length){ tab.innerHTML='<div class="hist-vazio">Ainda não há registros desta criança. 🌱</div>'; return; }
+  dias.slice(0,14).forEach(d=>{
+    const s=statsDia(dados[d]);
+    const row=document.createElement('div'); row.className='rel-row';
+    const hoje=d===hojeId();
+    row.innerHTML=`<span class="r-data${hoje?' r-hoje':''}">${fmtDataBr(d)}${hoje?' 📍':''}</span>
+      <span>${s.tarefas}/${s.totalTarefas||'—'}</span>
+      <span>${s.copos}</span>
+      <span>${s.xixis}</span>
+      <span>${s.mediaMin!==''? fmtDur(s.mediaMin) : '—'}</span>`;
+    tab.appendChild(row);
+  });
+}
+document.getElementById('relSel').addEventListener('change',e=>{ relKidId=e.target.value; renderRelatorio(); });
+
+function baixarCSV(nomeArq, linhas){
+  const blob=new Blob(["﻿"+linhas.join('\r\n')], {type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download=nomeArq;
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+document.getElementById('btnCsvResumo').addEventListener('click',()=>{
+  const c=relKid(); const dados=histDe(c.id);
+  const linhas=['Data;Crianca;Tarefas feitas;Total de tarefas;Copos de agua;Xixis;Intervalo medio xixi (min);Primeiro xixi;Ultimo xixi'];
+  Object.keys(dados).sort().forEach(d=>{
+    const s=statsDia(dados[d]);
+    linhas.push([d, c.nome, s.tarefas, s.totalTarefas, s.copos, s.xixis, s.mediaMin, s.primeiroXixi, s.ultimoXixi].join(';'));
+  });
+  if(linhas.length===1){ showToast('Ainda não há dados para exportar 🌱'); return; }
+  baixarCSV('rotina-'+slug(c.nome)+'-resumo-'+hojeId()+'.csv', linhas);
+  showToast('📄 Resumo baixado!');
+});
+document.getElementById('btnCsvDetalhe').addEventListener('click',()=>{
+  const c=relKid(); const dados=histDe(c.id);
+  const linhas=['Data;Hora;Crianca;Tipo;Detalhe'];
+  Object.keys(dados).sort().forEach(d=>{
+    const h=dados[d]; const evs=[];
+    (h.agua||[]).forEach(ts=>evs.push({ts, tipo:'Agua', det:'copo de agua'}));
+    (h.xixi||[]).forEach(ts=>evs.push({ts, tipo:'Xixi', det:''}));
+    (h.tarefas||[]).forEach(t=>evs.push({ts:t.ts, tipo:'Tarefa', det:t.nome}));
+    evs.sort((a,b)=>a.ts-b.ts).forEach(e=>linhas.push([d, fmtHora(e.ts), c.nome, e.tipo, e.det].join(';')));
+  });
+  if(linhas.length===1){ showToast('Ainda não há dados para exportar 🌱'); return; }
+  baixarCSV('rotina-'+slug(c.nome)+'-detalhado-'+hojeId()+'.csv', linhas);
+  showToast('🕐 Registros baixados!');
+});
+
+// ===================== ENVIAR RELATÓRIO (pais → profissional) =====================
+function textoResumo(){
+  const c=kidAtiva();
+  const dias=Object.keys(hist).sort().slice(-7);
+  let msg='📊 *Rotina de '+c.nome+'* — resumo para '+PROFISSIONAL.nome+'\n';
+  if(!dias.length){ msg+='\nAinda sem registros.'; return msg; }
+  dias.forEach(d=>{
+    const s=statsDia(hist[d]);
+    msg+='\n📅 '+fmtDataBr(d)+' → ⭐ '+s.tarefas+'/'+s.totalTarefas+' tarefas · 💧 '+s.copos+' copos · 🚽 '+s.xixis+' xixis';
+    if(s.mediaMin!=='') msg+=' (intervalo médio '+fmtDur(s.mediaMin)+')';
+    if(s.primeiroXixi) msg+=' · 1º xixi '+s.primeiroXixi+', último '+s.ultimoXixi;
+  });
+  msg+='\n\nEnviado pelo app Gota 💧';
+  return msg;
+}
+document.getElementById('ajEnviar').addEventListener('click',()=>{
+  if(!Object.keys(hist).length){ showToast('Ainda não há registros para sincronizar 🌱'); return; }
+  if(!PROFISSIONAL.planilhaUrl){ showToast('Sincronização ainda não configurada pela agência 🔧'); return; }
+  sincronizarNuvem('Resumo7dias', textoResumo());
+  showToast('📤 Reenviado para '+PROFISSIONAL.nome+'!');
+});
+
+// ===================== ÁREA DO PROFISSIONAL (senha) =====================
+document.getElementById('ajAdmin').addEventListener('click',()=>{
+  document.getElementById('pinInput').value='';
+  document.getElementById('modalPin').classList.add('show');
+  setTimeout(()=>document.getElementById('pinInput').focus(),100);
+});
+document.getElementById('pinCancel').addEventListener('click',()=>document.getElementById('modalPin').classList.remove('show'));
+function tentarPin(){
+  if(document.getElementById('pinInput').value===PROFISSIONAL.pin){
+    document.getElementById('modalPin').classList.remove('show');
+    relKidId=kids.ativa;
+    renderRelatorio();
+    mostrarTela('tela-relatorio');
+  }else{
+    showToast('Senha incorreta 🔒');
+    document.getElementById('pinInput').value='';
+  }
+}
+document.getElementById('pinOk').addEventListener('click',tentarPin);
+document.getElementById('pinInput').addEventListener('keydown',e=>{ if(e.key==='Enter') tentarPin(); });
+
+// ===================== LEMBRETES =====================
+function proximoEvento(arr, intervaloMin){
+  const j=janelaAcordado();
+  const base = arr.length ? arr[arr.length-1] : j.ini.getTime();
+  return base + intervaloMin*60000;
+}
+function atualizarLembretes(){
+  if(!rotina) return;
+  checarViradaDia();
+  const now=Date.now();
+  const acordada=estaAcordada();
+  document.getElementById('lemSono').textContent='Acordar '+config.acordar+' · Dormir '+config.dormir;
+
+  const alvos=[
+    {prox:proximoEvento(cuidados.agua, config.aguaMin), rowId:'lemAgua', tempoId:'lemAguaTempo',
+     emoji:'💧', titulo:'Hora de beber água!', msg:'Um copinho agora! 💪', jaAvisado:()=>avisadoAgua, marcar:v=>avisadoAgua=v},
+    {prox:proximoEvento(cuidados.xixi, config.xixiMin), rowId:'lemXixi', tempoId:'lemXixiTempo',
+     emoji:'🚽', titulo:'Hora de ir ao banheiro!', msg:'Vamos tentar fazer xixi? 🌟', jaAvisado:()=>avisadoXixi, marcar:v=>avisadoXixi=v},
+  ];
+  alvos.forEach(a=>{
+    const row=document.getElementById(a.rowId), tempoEl=document.getElementById(a.tempoId);
+    if(!acordada){
+      row.classList.remove('due');
+      tempoEl.textContent='😴 Fora do horário acordado';
+      return;
+    }
+    const diffMin=(a.prox-now)/60000;
+    if(diffMin<=0){
+      row.classList.add('due');
+      tempoEl.textContent='⏰ Agora! Já passou '+fmtDur(-diffMin);
+      if(a.jaAvisado()!==a.prox){
+        a.marcar(a.prox);
+        dispararAviso(a.emoji, a.titulo, a.msg);
+      }
+    }else{
+      row.classList.remove('due');
+      tempoEl.textContent='Falta '+fmtDur(diffMin)+' · próximo às '+fmtHora(a.prox);
+    }
+  });
+  atualizarRim();
+}
+
+function dispararAviso(emoji, titulo, msg){
+  document.getElementById('avEmoji').textContent=emoji;
+  document.getElementById('avTitulo').textContent=titulo;
+  document.getElementById('avMsg').textContent=msg;
+  document.getElementById('avisoTopo').classList.add('show');
+  try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    [[880,0],[1174,0.18]].forEach(([f,t])=>{
+      const o=ctx.createOscillator(), g=ctx.createGain();
+      o.type='sine'; o.frequency.value=f; o.connect(g); g.connect(ctx.destination);
+      g.gain.setValueAtTime(0.001,ctx.currentTime+t);
+      g.gain.exponentialRampToValueAtTime(0.2,ctx.currentTime+t+0.02);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+t+0.35);
+      o.start(ctx.currentTime+t); o.stop(ctx.currentTime+t+0.4);
+    });
+  }catch(e){}
+  try{
+    if('Notification' in window && Notification.permission==='granted'){
+      new Notification(titulo,{body:msg, tag:'rotina-mv'});
+    }
+  }catch(e){}
+}
+function atualizarRim(){
+  const svg=document.getElementById('rimSvg'); if(!svg || !cuidados) return;
+  const carinha=document.getElementById('rimCarinha'), legenda=document.getElementById('rimLegenda');
+  const x=cuidados.xixi, ultimo=x.length? x[x.length-1] : null;
+  const limiar=config.xixiMin;
+  const minSince = ultimo!==null ? (Date.now()-ultimo)/60000 : null;
+  svg.classList.remove('apertado');
+  if(minSince===null){ carinha.textContent='😊'; legenda.textContent='Rinzinho tá tranquilo!'; }
+  else if(minSince>=limiar){ svg.classList.add('apertado'); carinha.textContent='😣'; legenda.textContent='Rinzinho tá apertado! Hora do xixi 🚽'; }
+  else if(minSince>=limiar*0.7){ carinha.textContent='😅'; legenda.textContent='Rinzinho já quer ir ao banheiro em breve...'; }
+  else { carinha.textContent='😊'; legenda.textContent='Rinzinho tá super bem!'; }
+}
+function fecharAviso(){ document.getElementById('avisoTopo').classList.remove('show'); }
+document.getElementById('avFechar').addEventListener('click',fecharAviso);
+
+setInterval(()=>{ if(kids && rotina) atualizarLembretes(); }, 20000);
+
+// ===================== AJUSTES =====================
+document.getElementById('ajEditar').addEventListener('click',abrirSetup);
+document.getElementById('ajLimpar').addEventListener('click',()=>{
+  if(!confirm('Limpar as tarefas, água e xixi de HOJE de '+primeiroNome()+'?')) return;
+  estadoSemana.dias[diaAtivo]=[]; salvarSemana();
+  cuidados={data:hojeId(), agua:[], xixi:[]}; salvarCuidados();
+  delete hist[hojeId()]; salvarHist();
+  avisadoAgua=0; avisadoXixi=0;
+  aplicarDia(); renderCuidados(); atualizarLembretes();
+  showToast('Dia limpo! Recomeçando 🔄');
+});
+document.getElementById('ajNotif').addEventListener('click',async ()=>{
+  if(!('Notification' in window)){ showToast('Este navegador não suporta notificações 😕'); return; }
+  const p=await Notification.requestPermission();
+  atualizaNotifStatus();
+  showToast(p==='granted' ? '🔔 Notificações ativadas!' : 'Notificações não autorizadas 😕');
+});
+function atualizaNotifStatus(){
+  const sub=document.getElementById('ajNotifSub');
+  if(!('Notification' in window)){ sub.textContent='Não suportado neste navegador'; return; }
+  sub.textContent = Notification.permission==='granted' ? '✅ Ativadas! Os avisos vão tocar.'
+    : Notification.permission==='denied' ? 'Bloqueadas — libere nas configurações do navegador'
+    : 'Toque para receber os avisos de água e xixi';
+}
+
+// ===================== INÍCIO =====================
+function saudacaoHora(){
+  const h=new Date().getHours();
+  return h<12 ? 'Bom dia' : h<18 ? 'Boa tarde' : 'Boa noite';
+}
+function atualizarTextosNome(){
+  const nome=primeiroNome();
+  document.getElementById('bannerTitulo').textContent = saudacaoHora()+', '+nome+'! 🌈';
+  document.getElementById('congratsTxt').textContent='Parabéns, '+nome+'! Rotina completa!';
+  document.getElementById('ajustesSub').textContent='Rotina de '+nome;
+  document.getElementById('ajEnviarSub').textContent=(PROFISSIONAL.planilhaUrl?'Os registros de '+nome+' são enviados automaticamente para '+PROFISSIONAL.nome:'Toque para reenviar os registros de '+nome+' para '+PROFISSIONAL.nome);
+  document.getElementById('ajCriancasSub').textContent=kids.lista.length+(kids.lista.length===1?' criança cadastrada':' crianças cadastradas');
+  aplicarAvatar();
+}
+function iniciarRotina(){
+  total=rotina.tarefas.length;
+  estadoSemana=carregarSemana();
+  // garante que registros de hoje feitos em versões antigas entrem no histórico
+  const h=histDia();
+  cuidados.agua.forEach(ts=>{ if(!h.agua.includes(ts)) h.agua.push(ts); });
+  cuidados.xixi.forEach(ts=>{ if(!h.xixi.includes(ts)) h.xixi.push(ts); });
+  h.agua.sort((a,b)=>a-b); h.xixi.sort((a,b)=>a-b);
+  estadoSemana.dias[diaAtivo].forEach(id=>{
+    if(!h.tarefas.some(t=>t.id===id)){
+      const tf=rotina.tarefas.find(t=>t.id===id);
+      if(tf) h.tarefas.push({id, nome:tf.nome, ts:Date.now()});
+    }
+  });
+  salvarHist();
+  atualizarTextosNome();
+  document.getElementById('bannerSub').textContent='Toque nas tarefas conforme for fazendo!';
+  buildPeriodos(); aplicarDia();
+  renderCuidados(); atualizarLembretes(); atualizaNotifStatus();
+  mostrarTela('tela-rotina');
+}
+
+if(kids) carregarEstadoCrianca();
+rotear();
+</script>
+</body>
+</html>
