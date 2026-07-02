@@ -164,19 +164,15 @@ body{
 
 /* ====== Tela Cuidados ====== */
 .gota-medidor{display:flex;justify-content:center;margin:6px 0 4px}
-.gota-svg{width:118px;height:150px;transition:transform .5s cubic-bezier(.34,1.56,.64,1);transform:scale(.82)}
+.gota-svg{width:128px;height:174px;transition:transform .5s cubic-bezier(.34,1.56,.64,1);transform:scale(.82)}
 .gota-svg.pop{animation:gotapop .5s cubic-bezier(.34,1.56,.64,1)}
 @keyframes gotapop{0%{transform:scale(.9)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
-.gota-contorno{fill:#F4FBFF;stroke:#BFE4F7;stroke-width:4}
-.gota-nivel{fill:#8ED4F5;transition:y .6s cubic-bezier(.34,1.56,.64,1),height .6s cubic-bezier(.34,1.56,.64,1),fill .4s}
-.gota-nivel.cheia{fill:#4FC3F7}
-.gota-carinha{font-size:26px}
-.rim-wrap{position:relative;width:112px;height:112px;margin:2px auto 0}
+.gota-nivel{fill:#63B3EC;transition:y .6s cubic-bezier(.34,1.56,.64,1),height .6s cubic-bezier(.34,1.56,.64,1),fill .4s}
+.gota-nivel.cheia{fill:#3E9BE2}
+.rim-wrap{position:relative;width:138px;height:156px;margin:2px auto 0}
 .rim-svg{width:100%;height:100%;display:block;transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
 .rim-svg.apertado{animation:rimtremor .45s ease-in-out infinite}
 @keyframes rimtremor{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
-.rim-corpo{fill:#F3A78B;stroke:#D97F63;stroke-width:4}
-.rim-carinha{position:absolute;top:32px;left:0;right:0;text-align:center;font-size:32px;pointer-events:none}
 .rim-legenda{text-align:center;font-size:12.5px;font-weight:700;color:var(--cinza);margin:4px 0 10px}
 .agua-copos{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0 6px}
 .copo{width:44px;height:52px;border-radius:10px 10px 14px 14px;border:3px solid #BFE4F7;background:#F4FBFF;display:flex;align-items:flex-end;justify-content:center;font-size:22px;padding-bottom:4px;transition:all .3s;position:relative;overflow:hidden}
@@ -281,7 +277,7 @@ body{
       </div>
       <button class="btn btn-primary" id="btnCadastro" disabled>Continuar</button>
       <button class="btn btn-secundario" id="btnCadVoltar" style="margin-top:10px;display:none">← Voltar</button>
-      <p class="nota">Os registros de rotina, água e xixi são enviados automaticamente para acompanhamento profissional. Você pode apagá-los quando quiser em Ajustes.</p>
+      <p class="nota">Os registros de rotina, água e xixi são enviados automaticamente para acompanhamento profissional.</p>
     </div>
   </section>
 
@@ -449,17 +445,41 @@ body{
       <div class="card-form">
         <h2>💧 Água de hoje</h2>
         <div class="gota-medidor">
-          <svg class="gota-svg" id="gotaSvg" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">
+          <svg class="gota-svg" id="gotaSvg" viewBox="0 0 140 190" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <clipPath id="gotaClip">
-                <path d="M60,8 C88,50 104,84 104,108 C104,134 84,152 60,152 C36,152 16,134 16,108 C16,84 32,50 60,8 Z"/>
+                <path d="M70,14 C96,54 113,88 113,116 C113,145 94,166 70,166 C46,166 27,145 27,116 C27,88 44,54 70,14 Z"/>
               </clipPath>
             </defs>
-            <path class="gota-contorno" d="M60,8 C88,50 104,84 104,108 C104,134 84,152 60,152 C36,152 16,134 16,108 C16,84 32,50 60,8 Z"/>
+            <!-- sombra no chão -->
+            <ellipse cx="70" cy="180" rx="40" ry="6" fill="#BFE4F7" opacity=".5"/>
+            <!-- pés -->
+            <ellipse cx="52" cy="174" rx="13" ry="7" fill="#4A9FE8" stroke="#20303B" stroke-width="4"/>
+            <ellipse cx="88" cy="174" rx="13" ry="7" fill="#4A9FE8" stroke="#20303B" stroke-width="4"/>
+            <!-- braços -->
+            <ellipse cx="18" cy="124" rx="7" ry="14" fill="#4A9FE8" stroke="#20303B" stroke-width="4" transform="rotate(24 18 124)"/>
+            <ellipse cx="122" cy="124" rx="7" ry="14" fill="#4A9FE8" stroke="#20303B" stroke-width="4" transform="rotate(-24 122 124)"/>
+            <!-- corpo -->
+            <path d="M70,14 C96,54 113,88 113,116 C113,145 94,166 70,166 C46,166 27,145 27,116 C27,88 44,54 70,14 Z" fill="#EAF6FE" stroke="#20303B" stroke-width="5"/>
             <g clip-path="url(#gotaClip)">
-              <rect class="gota-nivel" id="gotaNivel" x="0" y="152" width="120" height="0"/>
+              <rect class="gota-nivel" id="gotaNivel" x="0" y="166" width="140" height="0"/>
             </g>
-            <text class="gota-carinha" id="gotaCarinha" x="60" y="112" text-anchor="middle">💧</text>
+            <!-- brilho -->
+            <path d="M48,68 C42,82 38,96 40,108" stroke="#fff" stroke-width="7" stroke-linecap="round" fill="none" opacity=".6"/>
+            <!-- rosto -->
+            <g id="gotaOlhosNormal">
+              <path d="M42,84 Q51,77 60,83" stroke="#20303B" stroke-width="4" fill="none" stroke-linecap="round"/>
+              <path d="M80,83 Q89,77 98,84" stroke="#20303B" stroke-width="4" fill="none" stroke-linecap="round"/>
+              <circle cx="53" cy="101" r="12" fill="#fff" stroke="#20303B" stroke-width="3.5"/>
+              <circle cx="87" cy="101" r="12" fill="#fff" stroke="#20303B" stroke-width="3.5"/>
+              <circle cx="56" cy="103" r="5" fill="#20303B"/>
+              <circle cx="84" cy="103" r="5" fill="#20303B"/>
+            </g>
+            <g id="gotaOlhosFeliz" style="display:none">
+              <path d="M44,100 Q53,90 62,100" stroke="#20303B" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+              <path d="M78,100 Q87,90 96,100" stroke="#20303B" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+            </g>
+            <path d="M52,124 Q70,146 88,124 Q70,133 52,124 Z" fill="#20303B"/>
           </svg>
         </div>
         <div class="agua-meta-txt" id="aguaMetaTxt">0 de 6 copos</div>
@@ -470,10 +490,50 @@ body{
       <div class="card-form">
         <h2>🚽 Xixi de hoje</h2>
         <div class="rim-wrap">
-          <svg class="rim-svg" id="rimSvg" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
-            <path class="rim-corpo" d="M75,10 C110,10 130,40 128,72 C126,104 100,128 70,126 C46,124 30,108 34,90 C38,74 50,68 48,52 C46,36 40,20 75,10 Z"/>
+          <svg class="rim-svg" id="rimSvg" viewBox="0 0 150 170" xmlns="http://www.w3.org/2000/svg">
+            <!-- sombra no chão -->
+            <ellipse cx="78" cy="164" rx="46" ry="5" fill="#F0D9CF" opacity=".7"/>
+            <!-- pernas -->
+            <g stroke="#2B2B2B" stroke-width="7" stroke-linecap="round" fill="none">
+              <path d="M64 138 L59 156 L43 159"/>
+              <path d="M94 138 L99 156 L115 159"/>
+            </g>
+            <!-- braços -->
+            <g stroke="#2B2B2B" stroke-width="7" stroke-linecap="round" fill="none">
+              <path d="M42 86 L24 112"/>
+              <path d="M120 86 L138 112"/>
+            </g>
+            <circle cx="23" cy="114" r="6" fill="#2B2B2B"/>
+            <circle cx="139" cy="114" r="6" fill="#2B2B2B"/>
+            <!-- corpo (rim) -->
+            <path d="M84,10 C114,14 132,46 130,82 C128,118 108,146 80,148 C60,150 46,138 48,124 C50,110 66,102 64,86 C62,68 50,58 52,42 C54,24 68,8 84,10 Z" fill="#E2604E"/>
+            <ellipse cx="98" cy="38" rx="11" ry="19" fill="#F2937F" transform="rotate(28 98 38)"/>
+            <!-- rosto: feliz -->
+            <g id="rimFaceFeliz">
+              <path d="M66,72 Q74,64 82,72" stroke="#2B2B2B" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+              <path d="M96,72 Q104,64 112,72" stroke="#2B2B2B" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+              <path d="M74,94 Q89,107 104,94" stroke="#2B2B2B" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+            </g>
+            <!-- rosto: atento -->
+            <g id="rimFaceAtenta" style="display:none">
+              <circle cx="74" cy="76" r="11" fill="#fff"/>
+              <circle cx="105" cy="76" r="11" fill="#fff"/>
+              <circle cx="76" cy="78" r="4.5" fill="#2B2B2B"/>
+              <circle cx="103" cy="78" r="4.5" fill="#2B2B2B"/>
+              <path d="M80,102 L100,100" stroke="#2B2B2B" stroke-width="4.5" stroke-linecap="round"/>
+            </g>
+            <!-- rosto: apertado -->
+            <g id="rimFaceApertada" style="display:none">
+              <path d="M62,62 Q70,58 78,62" stroke="#2B2B2B" stroke-width="4" fill="none" stroke-linecap="round"/>
+              <path d="M100,62 Q108,58 116,62" stroke="#2B2B2B" stroke-width="4" fill="none" stroke-linecap="round"/>
+              <circle cx="73" cy="78" r="12" fill="#fff"/>
+              <circle cx="106" cy="78" r="12" fill="#fff"/>
+              <circle cx="75" cy="80" r="5" fill="#2B2B2B"/>
+              <circle cx="104" cy="80" r="5" fill="#2B2B2B"/>
+              <path d="M76,108 Q89,98 102,108" stroke="#2B2B2B" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+              <path d="M56,44 C52,52 50,58 54,60 C58,62 62,56 60,50 C59,47 58,45 56,44 Z" fill="#8FD3F4"/>
+            </g>
           </svg>
-          <span class="rim-carinha" id="rimCarinha">😊</span>
         </div>
         <div class="rim-legenda" id="rimLegenda">Rinzinho tá tranquilo!</div>
         <div class="stat-pills">
@@ -574,7 +634,7 @@ body{
         <div class="aj-txt"><b>Área do profissional</b><span>Relatório completo — acesso com senha</span></div>
         <span class="aj-seta">›</span>
       </div>
-      <p class="nota">Feito com 💚 — os dados ficam salvos neste aparelho e também são enviados automaticamente para acompanhamento profissional.</p>
+      <p class="nota">Feito com 💚 — os registros de rotina, água e xixi são enviados automaticamente para a profissional que acompanha seu filho(a). Você pode apagá-los quando quiser.</p>
     </div>
   </section>
 
@@ -1223,12 +1283,13 @@ function renderCuidados(){
   document.getElementById('cuidadosSub').textContent='Água e banheiro de '+primeiroNome();
   const meta=config.aguaMeta, qtd=cuidados.agua.length;
   const pct=Math.min(1, qtd/meta);
-  const alturaMax=144;
+  const alturaMax=152;
   const nivel=document.getElementById('gotaNivel');
-  nivel.setAttribute('y', 152-alturaMax*pct);
+  nivel.setAttribute('y', 166-alturaMax*pct);
   nivel.setAttribute('height', alturaMax*pct);
   nivel.classList.toggle('cheia', qtd>=meta);
-  document.getElementById('gotaCarinha').textContent = qtd===0 ? '💧' : qtd>=meta ? '😄' : '🙂';
+  document.getElementById('gotaOlhosNormal').style.display = qtd>=meta ? 'none' : '';
+  document.getElementById('gotaOlhosFeliz').style.display = qtd>=meta ? '' : 'none';
   document.getElementById('gotaSvg').style.transform = 'scale('+(0.82+0.33*Math.min(1.15, qtd/meta))+')';
   document.getElementById('aguaMetaTxt').textContent =
     qtd>=meta ? `Meta batida! ${qtd} copos hoje 🎉` : `${qtd} de ${meta} copos`;
@@ -1455,15 +1516,19 @@ function dispararAviso(emoji, titulo, msg){
 }
 function atualizarRim(){
   const svg=document.getElementById('rimSvg'); if(!svg || !cuidados) return;
-  const carinha=document.getElementById('rimCarinha'), legenda=document.getElementById('rimLegenda');
+  const legenda=document.getElementById('rimLegenda');
   const x=cuidados.xixi, ultimo=x.length? x[x.length-1] : null;
   const limiar=config.xixiMin;
   const minSince = ultimo!==null ? (Date.now()-ultimo)/60000 : null;
   svg.classList.remove('apertado');
-  if(minSince===null){ carinha.textContent='😊'; legenda.textContent='Rinzinho tá tranquilo!'; }
-  else if(minSince>=limiar){ svg.classList.add('apertado'); carinha.textContent='😣'; legenda.textContent='Rinzinho tá apertado! Hora do xixi 🚽'; }
-  else if(minSince>=limiar*0.7){ carinha.textContent='😅'; legenda.textContent='Rinzinho já quer ir ao banheiro em breve...'; }
-  else { carinha.textContent='😊'; legenda.textContent='Rinzinho tá super bem!'; }
+  let face='Feliz';
+  if(minSince===null){ legenda.textContent='Rinzinho tá tranquilo!'; }
+  else if(minSince>=limiar){ svg.classList.add('apertado'); face='Apertada'; legenda.textContent='Rinzinho tá apertado! Hora do xixi 🚽'; }
+  else if(minSince>=limiar*0.7){ face='Atenta'; legenda.textContent='Rinzinho já quer ir ao banheiro em breve...'; }
+  else { legenda.textContent='Rinzinho tá super bem!'; }
+  ['Feliz','Atenta','Apertada'].forEach(f=>{
+    document.getElementById('rimFace'+f).style.display = f===face ? '' : 'none';
+  });
 }
 function fecharAviso(){ document.getElementById('avisoTopo').classList.remove('show'); }
 document.getElementById('avFechar').addEventListener('click',fecharAviso);
