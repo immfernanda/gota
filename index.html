@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#5BB450">
 <title>Gota 💧</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="apple-touch-icon" href="icon.svg">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Gota">
+<meta name="application-name" content="Gota">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
@@ -179,6 +187,16 @@ body{
 .copo.cheio{border-color:#2FA8DF;background:linear-gradient(180deg,#E3F4FD 20%,#8ED4F5)}
 .copo.extra{border-color:var(--amarelo);background:linear-gradient(180deg,#FFFBE5 20%,#FFE97F)}
 .agua-meta-txt{text-align:center;font-size:13px;color:var(--cinza);font-weight:600;margin-bottom:12px}
+.agua-stepper{display:flex;align-items:center;justify-content:center;gap:14px;margin:4px 0 2px}
+.agua-stepper .stp-btn{width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#5BC8F5,#2FA8DF);color:#fff;font-family:'Baloo 2';font-size:26px;font-weight:800;line-height:1;cursor:pointer;box-shadow:0 4px 10px rgba(47,168,223,.35);transition:transform .12s}
+.agua-stepper .stp-btn:active{transform:scale(.9)}
+.agua-stepper .stp-btn:disabled{opacity:.4;box-shadow:none;cursor:not-allowed}
+.agua-stepper .stp-val{min-width:112px;text-align:center;font-family:'Baloo 2';font-weight:800;font-size:24px;color:var(--verde-esc)}
+.agua-stepper .stp-val small{font-size:14px;color:var(--cinza);font-weight:700}
+.agua-rapidos{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:10px 0 2px}
+.agua-rapidos button{border:2px solid #BFE4F7;background:#F4FBFF;color:#2FA8DF;border-radius:30px;padding:7px 13px;font-family:'Baloo 2';font-weight:700;font-size:13px;cursor:pointer;transition:all .15s}
+.agua-rapidos button:active{transform:scale(.94)}
+.agua-rapidos button.on{background:#2FA8DF;border-color:#2FA8DF;color:#fff}
 .hist-lista{margin-top:6px}
 .hist-item{display:flex;align-items:center;gap:10px;padding:9px 4px;border-top:1.5px solid #F0F6E8;font-size:14px}
 .hist-item:first-child{border-top:none}
@@ -332,14 +350,18 @@ body{
             </select>
           </div>
           <div class="campo">
-            <label for="cfgMeta">Meta de copos/dia:</label>
+            <label for="cfgMeta">Meta de água/dia:</label>
             <select id="cfgMeta">
-              <option value="4">4 copos</option>
-              <option value="5">5 copos</option>
-              <option value="6" selected>6 copos</option>
-              <option value="7">7 copos</option>
-              <option value="8">8 copos</option>
-              <option value="10">10 copos</option>
+              <option value="600">600 ml</option>
+              <option value="800">800 ml</option>
+              <option value="1000">1000 ml (1 L)</option>
+              <option value="1200" selected>1200 ml</option>
+              <option value="1400">1400 ml</option>
+              <option value="1600">1600 ml</option>
+              <option value="1800">1800 ml</option>
+              <option value="2000">2000 ml (2 L)</option>
+              <option value="2500">2500 ml</option>
+              <option value="3000">3000 ml (3 L)</option>
             </select>
           </div>
         </div>
@@ -373,9 +395,9 @@ body{
             <div class="pi-sub">hoje</div>
           </div>
           <div class="painel-item">
-            <div class="pi-label">💧 Copos</div>
-            <div class="pi-valor" id="piAgua">0/6</div>
-            <div class="pi-sub">de água</div>
+            <div class="pi-label">💧 Água</div>
+            <div class="pi-valor" id="piAgua">0 ml</div>
+            <div class="pi-sub">hoje</div>
           </div>
           <div class="painel-item">
             <div class="pi-label">🚽 Xixi</div>
@@ -395,7 +417,7 @@ body{
             <div class="lem-titulo">Beber água</div>
             <div class="lem-tempo" id="lemAguaTempo">—</div>
           </div>
-          <button class="lem-btn b-agua" id="btnBebi">Bebi! +1</button>
+          <button class="lem-btn b-agua" id="btnBebi">Bebi! 💧</button>
         </div>
         <div class="lem-row xixi" id="lemXixi">
           <div class="lem-ico">🚽</div>
@@ -482,8 +504,19 @@ body{
             <path d="M52,124 Q70,146 88,124 Q70,133 52,124 Z" fill="#20303B"/>
           </svg>
         </div>
-        <div class="agua-meta-txt" id="aguaMetaTxt">0 de 6 copos</div>
-        <button class="btn-registro r-agua" id="btnBebi2">💧 Bebi um copo de água!</button>
+        <div class="agua-meta-txt" id="aguaMetaTxt">0 de 1200 ml</div>
+        <div class="agua-stepper">
+          <button type="button" class="stp-btn" id="aguaMenos" aria-label="Diminuir 100 ml">−</button>
+          <div class="stp-val"><span id="aguaSelVal">200</span> <small>ml</small></div>
+          <button type="button" class="stp-btn" id="aguaMais" aria-label="Aumentar 100 ml">+</button>
+        </div>
+        <div class="agua-rapidos" id="aguaRapidos">
+          <button type="button" data-ml="100">100</button>
+          <button type="button" data-ml="200">200</button>
+          <button type="button" data-ml="300">300</button>
+          <button type="button" data-ml="500">500</button>
+        </div>
+        <button class="btn-registro r-agua" id="btnBebi2">💧 Registrar <span id="btnBebiMl">200</span> ml</button>
         <div class="hist-lista" id="aguaHist"></div>
       </div>
 
@@ -567,7 +600,7 @@ body{
       <div class="card-form">
         <h2>📅 Últimos dias</h2>
         <div class="rel-head">
-          <span>Data</span><span>⭐ Tarefas</span><span>💧 Copos</span><span>🚽 Xixi</span><span>⏱ Interv. médio</span>
+          <span>Data</span><span>⭐ Tarefas</span><span>💧 Água</span><span>🚽 Xixi</span><span>⏱ Interv. médio</span>
         </div>
         <div id="relTabela"></div>
       </div>
@@ -577,7 +610,7 @@ body{
         <p style="font-size:13px;color:var(--cinza);line-height:1.45">Baixe os dados em CSV para abrir no Excel ou Google Planilhas.</p>
         <button class="btn-registro r-verde" id="btnCsvResumo">📄 Baixar resumo por dia (CSV)</button>
         <button class="btn-registro r-agua" id="btnCsvDetalhe">🕐 Baixar todos os registros (CSV)</button>
-        <p class="nota">O resumo tem uma linha por dia. O detalhado tem cada copo de água, xixi e tarefa com horário.</p>
+        <p class="nota">O resumo tem uma linha por dia. O detalhado tem cada registro de água (em ml), xixi e tarefa com horário.</p>
       </div>
     </div>
   </section>
@@ -840,7 +873,16 @@ const NOMES_PERIODO = {manha:'☀️ Manhã', tarde:'🌤️ Tarde', noite:'🌙
 const K_KIDS='rotina-mv-kids';
 const B_ROTINA='rotina-mv-rotina', B_CONFIG='rotina-mv-config', B_CUIDADOS='rotina-mv-cuidados',
       B_SEMANA='rotina-mv-semana', B_HIST='rotina-mv-hist';
-const CONFIG_PADRAO = {acordar:'07:00', dormir:'20:30', xixiMin:120, aguaMin:60, aguaMeta:6};
+const CONFIG_PADRAO = {acordar:'07:00', dormir:'20:30', xixiMin:120, aguaMin:60, aguaMeta:1200};
+
+// ===================== ÁGUA EM ML =====================
+// Cada registro de água é {ts, ml}. Versões antigas guardavam só o timestamp
+// (1 copo). Estes acessores toleram os dois formatos, contando copo antigo = 200 ml.
+const AGUA_MIN=100, AGUA_MAX=3000, AGUA_STEP=100, COPO_LEGADO_ML=200;
+let aguaSel=200;
+function aTs(e){ return typeof e==='number' ? e : (e && e.ts) || 0; }
+function aMl(e){ return typeof e==='number' ? COPO_LEGADO_ML : ((e && e.ml) || COPO_LEGADO_ML); }
+function aguaTotal(arr){ return (arr||[]).reduce((s,e)=>s+aMl(e), 0); }
 
 function lerJSON(k){ try{ return JSON.parse(localStorage.getItem(k)||'null'); }catch(e){ return null; } }
 function salvarJSON(k,v){ localStorage.setItem(k, JSON.stringify(v)); }
@@ -888,6 +930,8 @@ function kkey(base){ return base+'-'+kids.ativa; }
 function carregarEstadoCrianca(){
   rotina=lerJSON(kkey(B_ROTINA));
   config=Object.assign({}, CONFIG_PADRAO, lerJSON(kkey(B_CONFIG))||{});
+  // Migra meta antiga em copos (valor pequeno) para ml.
+  if(config.aguaMeta && config.aguaMeta<=20) config.aguaMeta=config.aguaMeta*COPO_LEGADO_ML;
   cuidados=carregarCuidados();
   hist=lerJSON(kkey(B_HIST))||{};
   avisadoAgua=0; avisadoXixi=0;
@@ -1251,16 +1295,17 @@ function aplicarDia(){
 }
 
 // ===================== ÁGUA E XIXI =====================
-function registrarAgua(){
+function registrarAgua(ml){
   checarViradaDia();
+  const q = Math.max(AGUA_MIN, Math.min(AGUA_MAX, parseInt(ml,10) || aguaSel || 200));
   const ts=Date.now();
-  cuidados.agua.push(ts); histDia().agua.push(ts);
+  cuidados.agua.push({ts, ml:q}); histDia().agua.push({ts, ml:q});
   salvarCuidados(); salvarHist(); avisadoAgua=0;
-  showToast('💧 Mais um copo! '+frasesBoas[Math.floor(Math.random()*frasesBoas.length)]);
+  showToast('💧 +'+q+' ml! '+frasesBoas[Math.floor(Math.random()*frasesBoas.length)]);
   fecharAviso(); renderCuidados(); atualizarLembretes();
   const svgGota=document.getElementById('gotaSvg');
   svgGota.classList.remove('pop'); void svgGota.offsetWidth; svgGota.classList.add('pop');
-  sincronizarNuvem('Agua', 'copo de água');
+  sincronizarNuvem('Agua', q+' ml');
 }
 function registrarXixi(){
   checarViradaDia();
@@ -1274,14 +1319,30 @@ function registrarXixi(){
   setTimeout(()=>{ svgRim.style.transform=''; }, 350);
   sincronizarNuvem('Xixi', '');
 }
-document.getElementById('btnBebi').addEventListener('click',registrarAgua);
-document.getElementById('btnBebi2').addEventListener('click',registrarAgua);
+document.getElementById('btnBebi').addEventListener('click',()=>registrarAgua());
+document.getElementById('btnBebi2').addEventListener('click',()=>registrarAgua());
 document.getElementById('btnXixi').addEventListener('click',registrarXixi);
 document.getElementById('btnXixi2').addEventListener('click',registrarXixi);
 
+// Seletor de quantidade de água (de 100 em 100 ml, de 100 até 3000).
+function setAguaSel(v){
+  aguaSel=Math.max(AGUA_MIN, Math.min(AGUA_MAX, Math.round(v/AGUA_STEP)*AGUA_STEP));
+  const val=document.getElementById('aguaSelVal'); if(val) val.textContent=aguaSel;
+  const bml=document.getElementById('btnBebiMl'); if(bml) bml.textContent=aguaSel;
+  const menos=document.getElementById('aguaMenos'), mais=document.getElementById('aguaMais');
+  if(menos) menos.disabled = aguaSel<=AGUA_MIN;
+  if(mais) mais.disabled = aguaSel>=AGUA_MAX;
+  document.querySelectorAll('#aguaRapidos button').forEach(b=>b.classList.toggle('on', parseInt(b.dataset.ml,10)===aguaSel));
+}
+document.getElementById('aguaMenos').addEventListener('click',()=>setAguaSel(aguaSel-AGUA_STEP));
+document.getElementById('aguaMais').addEventListener('click',()=>setAguaSel(aguaSel+AGUA_STEP));
+document.querySelectorAll('#aguaRapidos button').forEach(b=>{
+  b.addEventListener('click',()=>setAguaSel(parseInt(b.dataset.ml,10)));
+});
+
 function renderCuidados(){
   document.getElementById('cuidadosSub').textContent='Água e banheiro de '+primeiroNome();
-  const meta=config.aguaMeta, qtd=cuidados.agua.length;
+  const meta=config.aguaMeta, qtd=aguaTotal(cuidados.agua);
   const pct=Math.min(1, qtd/meta);
   const alturaMax=152;
   const nivel=document.getElementById('gotaNivel');
@@ -1292,7 +1353,7 @@ function renderCuidados(){
   document.getElementById('gotaOlhosFeliz').style.display = qtd>=meta ? '' : 'none';
   document.getElementById('gotaSvg').style.transform = 'scale('+(0.82+0.33*Math.min(1.15, qtd/meta))+')';
   document.getElementById('aguaMetaTxt').textContent =
-    qtd>=meta ? `Meta batida! ${qtd} copos hoje 🎉` : `${qtd} de ${meta} copos`;
+    qtd>=meta ? `Meta batida! ${qtd} ml hoje 🎉` : `${qtd} de ${meta} ml`;
   montaHistorico('aguaHist', cuidados.agua, 'agua');
   const x=cuidados.xixi;
   document.getElementById('xxTotal').textContent=x.length;
@@ -1302,24 +1363,29 @@ function renderCuidados(){
     document.getElementById('xxMedia').textContent = fmtDur(soma/(x.length-1)/60000);
   }else document.getElementById('xxMedia').textContent='—';
   montaHistorico('xixiHist', x, 'xixi');
-  document.getElementById('piAgua').textContent = qtd+'/'+meta;
+  document.getElementById('piAgua').textContent = qtd+' ml';
   document.getElementById('piXixi').textContent = x.length;
 }
 
 function montaHistorico(elId, arr, tipo){
   const el=document.getElementById(elId); el.innerHTML='';
   if(!arr.length){ el.innerHTML='<div class="hist-vazio">Nenhum registro hoje ainda.</div>'; return; }
-  const ult=[...arr].map((ts,i)=>({ts,i})).reverse().slice(0,8);
-  ult.forEach(({ts,i})=>{
+  const ehAgua = tipo==='agua';
+  const ult=[...arr].map((e,i)=>({e,i})).reverse().slice(0,8);
+  ult.forEach(({e,i})=>{
     const row=document.createElement('div'); row.className='hist-item';
-    const gap = i>0 ? fmtDur((ts-arr[i-1])/60000)+' depois do anterior' : 'primeiro do dia';
-    row.innerHTML=`<span class="h-hora">${fmtHora(ts)}</span><span class="h-gap">${tipo==='agua'?'💧':'🚽'} ${gap}</span>
+    const ts=ehAgua?aTs(e):e;
+    const anterior = ehAgua?aTs(arr[i-1]):arr[i-1];
+    const gap = i>0 ? fmtDur((ts-anterior)/60000)+' depois do anterior' : 'primeiro do dia';
+    const rotulo = ehAgua ? `💧 ${aMl(e)} ml · ${gap}` : `🚽 ${gap}`;
+    row.innerHTML=`<span class="h-hora">${fmtHora(ts)}</span><span class="h-gap">${rotulo}</span>
       <button class="h-del" title="Apagar" data-i="${i}">✕</button>`;
     row.querySelector('.h-del').addEventListener('click',()=>{
       arr.splice(i,1);
       const h=histDia();
-      const lista = tipo==='agua'? h.agua : h.xixi;
-      const idx=lista.indexOf(ts); if(idx>-1) lista.splice(idx,1);
+      const lista = ehAgua? h.agua : h.xixi;
+      const idx = ehAgua ? lista.findIndex(x=>aTs(x)===ts) : lista.indexOf(ts);
+      if(idx>-1) lista.splice(idx,1);
       salvarCuidados(); salvarHist(); renderCuidados(); atualizarLembretes();
     });
     el.appendChild(row);
@@ -1333,7 +1399,7 @@ function statsDia(h){
   if(x.length>=2){ let soma=0; for(let i=1;i<x.length;i++) soma+=x[i]-x[i-1]; media=Math.round(soma/(x.length-1)/60000); }
   return {
     tarefas:(h.tarefas||[]).length, totalTarefas:h.totalTarefas||0,
-    copos:(h.agua||[]).length, xixis:x.length,
+    aguaMl:aguaTotal(h.agua), xixis:x.length,
     mediaMin:media,
     primeiroXixi:x.length?fmtHora(x[0]):'', ultimoXixi:x.length?fmtHora(x[x.length-1]):''
   };
@@ -1366,7 +1432,7 @@ function renderRelatorio(){
     const hoje=d===hojeId();
     row.innerHTML=`<span class="r-data${hoje?' r-hoje':''}">${fmtDataBr(d)}${hoje?' 📍':''}</span>
       <span>${s.tarefas}/${s.totalTarefas||'—'}</span>
-      <span>${s.copos}</span>
+      <span>${s.aguaMl} ml</span>
       <span>${s.xixis}</span>
       <span>${s.mediaMin!==''? fmtDur(s.mediaMin) : '—'}</span>`;
     tab.appendChild(row);
@@ -1383,10 +1449,10 @@ function baixarCSV(nomeArq, linhas){
 }
 document.getElementById('btnCsvResumo').addEventListener('click',()=>{
   const c=relKid(); const dados=histDe(c.id);
-  const linhas=['Data;Crianca;Tarefas feitas;Total de tarefas;Copos de agua;Xixis;Intervalo medio xixi (min);Primeiro xixi;Ultimo xixi'];
+  const linhas=['Data;Crianca;Tarefas feitas;Total de tarefas;Agua (ml);Xixis;Intervalo medio xixi (min);Primeiro xixi;Ultimo xixi'];
   Object.keys(dados).sort().forEach(d=>{
     const s=statsDia(dados[d]);
-    linhas.push([d, c.nome, s.tarefas, s.totalTarefas, s.copos, s.xixis, s.mediaMin, s.primeiroXixi, s.ultimoXixi].join(';'));
+    linhas.push([d, c.nome, s.tarefas, s.totalTarefas, s.aguaMl, s.xixis, s.mediaMin, s.primeiroXixi, s.ultimoXixi].join(';'));
   });
   if(linhas.length===1){ showToast('Ainda não há dados para exportar 🌱'); return; }
   baixarCSV('rotina-'+slug(c.nome)+'-resumo-'+hojeId()+'.csv', linhas);
@@ -1397,7 +1463,7 @@ document.getElementById('btnCsvDetalhe').addEventListener('click',()=>{
   const linhas=['Data;Hora;Crianca;Tipo;Detalhe'];
   Object.keys(dados).sort().forEach(d=>{
     const h=dados[d]; const evs=[];
-    (h.agua||[]).forEach(ts=>evs.push({ts, tipo:'Agua', det:'copo de agua'}));
+    (h.agua||[]).forEach(e=>evs.push({ts:aTs(e), tipo:'Agua', det:aMl(e)+' ml'}));
     (h.xixi||[]).forEach(ts=>evs.push({ts, tipo:'Xixi', det:''}));
     (h.tarefas||[]).forEach(t=>evs.push({ts:t.ts, tipo:'Tarefa', det:t.nome}));
     evs.sort((a,b)=>a.ts-b.ts).forEach(e=>linhas.push([d, fmtHora(e.ts), c.nome, e.tipo, e.det].join(';')));
@@ -1415,7 +1481,7 @@ function textoResumo(){
   if(!dias.length){ msg+='\nAinda sem registros.'; return msg; }
   dias.forEach(d=>{
     const s=statsDia(hist[d]);
-    msg+='\n📅 '+fmtDataBr(d)+' → ⭐ '+s.tarefas+'/'+s.totalTarefas+' tarefas · 💧 '+s.copos+' copos · 🚽 '+s.xixis+' xixis';
+    msg+='\n📅 '+fmtDataBr(d)+' → ⭐ '+s.tarefas+'/'+s.totalTarefas+' tarefas · 💧 '+s.aguaMl+' ml · 🚽 '+s.xixis+' xixis';
     if(s.mediaMin!=='') msg+=' (intervalo médio '+fmtDur(s.mediaMin)+')';
     if(s.primeiroXixi) msg+=' · 1º xixi '+s.primeiroXixi+', último '+s.ultimoXixi;
   });
@@ -1453,7 +1519,7 @@ document.getElementById('pinInput').addEventListener('keydown',e=>{ if(e.key==='
 // ===================== LEMBRETES =====================
 function proximoEvento(arr, intervaloMin){
   const j=janelaAcordado();
-  const base = arr.length ? arr[arr.length-1] : j.ini.getTime();
+  const base = arr.length ? aTs(arr[arr.length-1]) : j.ini.getTime();
   return base + intervaloMin*60000;
 }
 function atualizarLembretes(){
@@ -1508,11 +1574,28 @@ function dispararAviso(emoji, titulo, msg){
       o.start(ctx.currentTime+t); o.stop(ctx.currentTime+t+0.4);
     });
   }catch(e){}
-  try{
-    if('Notification' in window && Notification.permission==='granted'){
-      new Notification(titulo,{body:msg, tag:'rotina-mv'});
-    }
-  }catch(e){}
+  try{ if(navigator.vibrate) navigator.vibrate([120,60,120]); }catch(e){}
+  mostrarNotificacao(emoji+' '+titulo, msg);
+}
+
+// Dispara a notificação do sistema. No celular (Android) o construtor
+// `new Notification()` é proibido e só a versão do service worker funciona;
+// por isso tentamos primeiro reg.showNotification() e só caímos no
+// construtor como último recurso (desktop antigo).
+function mostrarNotificacao(titulo, msg){
+  if(!('Notification' in window) || Notification.permission!=='granted') return;
+  const opts={ body:msg, tag:'rotina-mv', renotify:true, lang:'pt-BR',
+    icon:'icon.svg', badge:'icon.svg', vibrate:[120,60,120] };
+  if('serviceWorker' in navigator && navigator.serviceWorker.ready){
+    navigator.serviceWorker.ready
+      .then(reg=>{ if(reg && reg.showNotification) reg.showNotification(titulo, opts); else notifFallback(titulo, opts); })
+      .catch(()=>notifFallback(titulo, opts));
+  }else{
+    notifFallback(titulo, opts);
+  }
+}
+function notifFallback(titulo, opts){
+  try{ new Notification(titulo, opts); }catch(e){}
 }
 function atualizarRim(){
   const svg=document.getElementById('rimSvg'); if(!svg || !cuidados) return;
@@ -1534,6 +1617,14 @@ function fecharAviso(){ document.getElementById('avisoTopo').classList.remove('s
 document.getElementById('avFechar').addEventListener('click',fecharAviso);
 
 setInterval(()=>{ if(kids && rotina) atualizarLembretes(); }, 20000);
+// Reavalia os lembretes assim que o app volta ao primeiro plano (timers pausam
+// em segundo plano no celular), para o aviso disparar logo ao reabrir.
+document.addEventListener('visibilitychange',()=>{ if(!document.hidden && kids && rotina) atualizarLembretes(); });
+
+function ehIOS(){ return /iphone|ipad|ipod/i.test(navigator.userAgent); }
+function ehStandalone(){
+  return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone===true;
+}
 
 // ===================== AJUSTES =====================
 document.getElementById('ajEditar').addEventListener('click',abrirSetup);
@@ -1547,14 +1638,30 @@ document.getElementById('ajLimpar').addEventListener('click',()=>{
   showToast('Dia limpo! Recomeçando 🔄');
 });
 document.getElementById('ajNotif').addEventListener('click',async ()=>{
-  if(!('Notification' in window)){ showToast('Este navegador não suporta notificações 😕'); return; }
-  const p=await Notification.requestPermission();
+  if(!('Notification' in window)){
+    showToast(ehIOS() && !ehStandalone()
+      ? 'No iPhone: Compartilhar → "Adicionar à Tela de Início" e abra por lá 📲'
+      : 'Este navegador não suporta notificações 😕');
+    return;
+  }
+  let p;
+  try{ p=await Notification.requestPermission(); }catch(e){ p=Notification.permission; }
   atualizaNotifStatus();
-  showToast(p==='granted' ? '🔔 Notificações ativadas!' : 'Notificações não autorizadas 😕');
+  if(p==='granted'){
+    showToast('🔔 Notificações ativadas!');
+    mostrarNotificacao('💧 Gota', 'Pronto! Os lembretes de água e xixi vão chegar aqui.');
+  }else{
+    showToast('Notificações não autorizadas 😕');
+  }
 });
 function atualizaNotifStatus(){
   const sub=document.getElementById('ajNotifSub');
-  if(!('Notification' in window)){ sub.textContent='Não suportado neste navegador'; return; }
+  if(!('Notification' in window)){
+    sub.textContent = (ehIOS() && !ehStandalone())
+      ? '📲 Instale na tela inicial para receber avisos (Compartilhar → Adicionar à Tela de Início)'
+      : 'Não suportado neste navegador';
+    return;
+  }
   sub.textContent = Notification.permission==='granted' ? '✅ Ativadas! Os avisos vão tocar.'
     : Notification.permission==='denied' ? 'Bloqueadas — libere nas configurações do navegador'
     : 'Toque para receber os avisos de água e xixi';
@@ -1579,9 +1686,9 @@ function iniciarRotina(){
   estadoSemana=carregarSemana();
   // garante que registros de hoje feitos em versões antigas entrem no histórico
   const h=histDia();
-  cuidados.agua.forEach(ts=>{ if(!h.agua.includes(ts)) h.agua.push(ts); });
+  cuidados.agua.forEach(e=>{ if(!h.agua.some(x=>aTs(x)===aTs(e))) h.agua.push(e); });
   cuidados.xixi.forEach(ts=>{ if(!h.xixi.includes(ts)) h.xixi.push(ts); });
-  h.agua.sort((a,b)=>a-b); h.xixi.sort((a,b)=>a-b);
+  h.agua.sort((a,b)=>aTs(a)-aTs(b)); h.xixi.sort((a,b)=>a-b);
   estadoSemana.dias[diaAtivo].forEach(id=>{
     if(!h.tarefas.some(t=>t.id===id)){
       const tf=rotina.tarefas.find(t=>t.id===id);
@@ -1596,6 +1703,12 @@ function iniciarRotina(){
   mostrarTela('tela-rotina');
 }
 
+// Registra o service worker (PWA + base para as notificações no celular).
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); });
+}
+
+setAguaSel(200);
 if(kids) carregarEstadoCrianca();
 rotear();
 </script>
