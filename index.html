@@ -1704,8 +1704,20 @@ function iniciarRotina(){
 }
 
 // Registra o service worker (PWA + base para as notificações no celular).
+// updateViaCache:'none' garante que o navegador sempre busque um sw.js novo,
+// e reg.update() checa atualização ao abrir e ao voltar ao primeiro plano —
+// assim o PWA instalado no celular pega as novas versões sozinho.
 if('serviceWorker' in navigator){
-  window.addEventListener('load',()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); });
+  let recarregou=false;
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{
+    if(recarregou) return; recarregou=true; location.reload();
+  });
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('sw.js', {updateViaCache:'none'}).then(reg=>{
+      reg.update().catch(()=>{});
+      document.addEventListener('visibilitychange',()=>{ if(!document.hidden) reg.update().catch(()=>{}); });
+    }).catch(()=>{});
+  });
 }
 
 setAguaSel(200);
