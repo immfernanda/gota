@@ -12,7 +12,7 @@
    - Demais arquivos: responde do cache na hora e atualiza em segundo plano
      (stale-while-revalidate).
    IMPORTANTE: a cada publicação de mudança, suba o VERSION abaixo. */
-const VERSION = 'v2';
+const VERSION = 'v3';
 const CACHE = 'gota-' + VERSION;
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon.svg', './icon-maskable.svg'];
 

@@ -266,6 +266,173 @@ body{
 .aviso-topo .av-txt{flex:1;font-size:13.5px;font-weight:600;line-height:1.3}
 .aviso-topo .av-txt b{font-family:'Baloo 2';font-size:15px;display:block;color:#E5731F}
 .aviso-topo .av-x{border:none;background:#F5F5F0;border-radius:50%;width:30px;height:30px;font-weight:800;color:#999;cursor:pointer;flex:none}
+
+/* =====================================================================
+   ACABAMENTO VISUAL (camada de polimento por cima da base)
+   ===================================================================== */
+:root{ --g-xixi:#E07B00; --g-agua:#2A93D5; --g-tarefa:#4C9A41; --tinta-2:#5c7351; }
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+  radial-gradient(620px 420px at 10% 6%,rgba(255,217,61,.20),transparent 62%),
+  radial-gradient(720px 520px at 92% 18%,rgba(79,195,247,.17),transparent 62%),
+  radial-gradient(760px 520px at 50% 104%,rgba(91,180,80,.20),transparent 62%)}
+@media(min-width:620px){
+  .wrap{margin:26px auto;min-height:calc(100vh - 52px);background:rgba(255,255,255,.62);border-radius:38px;overflow:hidden;
+    box-shadow:0 0 0 1px rgba(255,255,255,.9) inset,0 34px 80px rgba(60,110,45,.20),0 6px 18px rgba(60,110,45,.08)}
+}
+
+/* marca */
+.marca{position:absolute;top:14px;left:14px;z-index:4;display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.9);
+  border-radius:30px;padding:5px 14px 5px 9px;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:17px;line-height:1.2;color:#1F7FB8;
+  box-shadow:0 4px 12px rgba(40,90,130,.2)}
+.marca svg{width:17px;height:22px;display:block}
+.topo.mini .marca{top:10px;left:12px;font-size:14.5px;padding:4px 12px 4px 8px}
+.topo.mini .marca svg{width:14px;height:18px}
+
+/* tipografia e cartões */
+.saudacao h1{font-size:26px;line-height:1.15;letter-spacing:-.2px}
+.saudacao p{font-size:14px}
+.card-form,.lembretes,.semana,.ajuste-item{border-width:1.5px;box-shadow:0 1px 0 rgba(255,255,255,.95) inset,0 10px 26px rgba(60,110,45,.09)}
+.card-form{border-radius:26px}
+.card-form h2{font-size:17px}
+.ajuste-item{border-radius:20px;transition:transform .12s,border-color .2s}
+.ajuste-item .aj-ico{width:44px;height:44px;border-radius:14px;background:var(--verde-fundo);display:flex;align-items:center;justify-content:center;flex:none}
+@media(hover:hover){
+  .ajuste-item:hover{border-color:var(--verde-claro);transform:translateY(-1px)}
+  .card:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(60,110,45,.12)}
+  .chip:hover{border-color:var(--verde-claro)}
+}
+
+/* campos */
+.campo label{font-size:13px;letter-spacing:.1px}
+.campo input[type=text],.campo input[type=time],.campo input[type=password],.campo select{border-radius:16px;padding:14px 16px;transition:border-color .15s,box-shadow .15s,background .15s}
+.campo input::placeholder{color:#A9B8A0}
+.campo input:focus,.campo select:focus{box-shadow:0 0 0 4px rgba(91,180,80,.18)}
+.consent{border-radius:18px;padding:14px;align-items:center}
+.consent input{appearance:none;-webkit-appearance:none;width:28px;height:28px;border-radius:10px;border:2.5px solid #B4D69C;background:#fff;
+  display:grid;place-content:center;cursor:pointer;margin:0;transition:background .15s,border-color .15s}
+.consent input::after{content:"✓";color:#fff;font-weight:800;font-size:17px;line-height:1;transform:scale(0);transition:transform .18s cubic-bezier(.34,1.56,.64,1)}
+.consent input:checked{background:var(--verde);border-color:var(--verde)}
+.consent input:checked::after{transform:scale(1)}
+.consent input:focus-visible{outline:none;box-shadow:0 0 0 4px rgba(91,180,80,.25)}
+.consent label{cursor:pointer}
+.nota{font-size:12px;color:#8FA283}
+
+/* botões com volume */
+.btn-primary{box-shadow:0 4px 0 #3A8532,0 12px 22px rgba(76,154,65,.30);text-shadow:0 1px 0 rgba(0,0,0,.12)}
+.btn-primary:active{transform:translateY(3px);box-shadow:0 1px 0 #3A8532,0 6px 12px rgba(76,154,65,.28)}
+.btn-primary:disabled{background:#D3DCCB;box-shadow:0 4px 0 #C2CCB8;opacity:1;text-shadow:none;transform:none}
+.btn-secundario{border-width:1.5px}
+.btn-registro.r-agua{box-shadow:0 4px 0 #1F86BB,0 10px 18px rgba(47,168,223,.28)}
+.btn-registro.r-xixi{box-shadow:0 4px 0 #D97F06,0 10px 18px rgba(255,159,28,.28)}
+.btn-registro.r-verde{box-shadow:0 4px 0 #3A8532,0 10px 18px rgba(76,154,65,.28)}
+.btn-registro.r-claro{background:#fff;color:var(--verde-esc);border:1.5px solid var(--verde-claro);box-shadow:0 4px 0 #D4E8C2}
+.btn-registro:active{transform:translateY(3px)}
+.lem-btn.b-agua{box-shadow:0 3px 0 #1F86BB,0 6px 12px rgba(47,168,223,.25)}
+.lem-btn.b-xixi{box-shadow:0 3px 0 #D97F06,0 6px 12px rgba(255,159,28,.25)}
+.lem-btn:active{transform:translateY(2px)}
+
+/* cadastro */
+.destaques{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.dq{border-radius:18px;padding:11px 6px 10px;text-align:center;border:1.5px solid var(--borda);background:#F3FAEC}
+.dq span{font-size:24px;display:block;line-height:1.2}
+.dq b{font-family:'Baloo 2',sans-serif;font-size:14px;display:block;color:var(--texto);margin-top:2px}
+.dq small{font-size:11px;color:var(--tinta-2);line-height:1.25;display:block;margin-top:1px}
+.dq.dq-agua{background:#F0F9FF;border-color:#CDEAFA}
+.dq.dq-xixi{background:#FFF8E8;border-color:#FFE3AE}
+.passos{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:12px;font-size:11.5px;font-weight:700;color:var(--cinza);text-transform:uppercase;letter-spacing:.6px}
+.passos i{width:24px;height:6px;border-radius:6px;background:#D5E6C4}
+.passos i.on{background:var(--verde)}
+.passos em{font-style:normal;margin-left:4px}
+
+/* navegação */
+.navbar .nav-in{border-width:1.5px;box-shadow:0 10px 30px rgba(60,110,45,.22)}
+.nav-item{position:relative}
+.nav-item.on::after{content:"";position:absolute;left:50%;bottom:3px;width:18px;height:3px;border-radius:3px;background:var(--verde);transform:translateX(-50%)}
+.nav-item.on .ni-ico{transform:translateY(-1px) scale(1.08)}
+.nav-item .ni-ico{transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
+
+/* ====== Linha do dia (xixi e água na régua de horas) ====== */
+.ld{margin:12px 2px 4px;padding:0 8px 0 0}
+.ld-titulo{font-size:11px;font-weight:700;color:var(--cinza);text-transform:uppercase;letter-spacing:.4px;margin:14px 0 0}
+.ld-lane{display:flex;align-items:center;gap:8px;height:24px}
+.ld-ico{width:22px;font-size:15px;text-align:center;flex:none}
+.ld-trilho{position:relative;flex:1;height:6px;border-radius:6px;background:#EEF4E6}
+.ld-trilho i{position:absolute;top:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 2px #fff}
+.ld-x{width:12px;height:12px;border-radius:50%;background:var(--g-xixi)}
+.ld-a{width:9px;height:9px;border-radius:2px;background:var(--g-agua);transform:translate(-50%,-50%) rotate(45deg)!important}
+.ld-eixo{position:relative;height:16px;margin-left:30px;margin-top:2px}
+.ld-eixo span{position:absolute;transform:translateX(-50%);font-size:10px;font-weight:600;color:#9cae90;white-space:nowrap}
+
+/* ====== Relatório ====== */
+.seg{display:flex;background:#fff;border:1.5px solid var(--borda);border-radius:30px;padding:4px;gap:4px;margin-bottom:14px;box-shadow:0 6px 16px rgba(60,110,45,.07)}
+.seg button{flex:1;border:none;background:none;border-radius:30px;padding:9px 4px;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:14px;color:var(--cinza);cursor:pointer;transition:background .2s,color .2s}
+.seg button.on{background:linear-gradient(135deg,#6FC162,#4C9A41);color:#fff;box-shadow:0 3px 8px rgba(76,154,65,.3)}
+.rel-periodo{text-align:center;font-size:12.5px;color:var(--cinza);font-weight:600;margin:-4px 0 12px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.tile{background:var(--card);border:1.5px solid var(--borda);border-radius:22px;padding:13px 14px;box-shadow:0 8px 20px rgba(60,110,45,.07)}
+.tile .t-l{font-size:11.5px;font-weight:700;color:var(--tinta-2);text-transform:uppercase;letter-spacing:.3px;display:flex;align-items:center;gap:6px}
+.tile .t-v{font-family:'Baloo 2',sans-serif;font-size:27px;font-weight:800;color:var(--texto);line-height:1.15;margin-top:3px}
+.tile .t-v small{font-size:14px;font-weight:700;color:var(--cinza);margin-left:2px}
+.tile .t-s{font-size:12px;color:var(--cinza);font-weight:500;margin-top:1px}
+.g-sub{font-size:12.5px;color:var(--cinza);font-weight:500;margin:-8px 0 12px;line-height:1.35}
+.gb-plot{position:relative;display:flex;align-items:flex-end;gap:2px;height:132px;border-bottom:1.5px solid #E3EDD8}
+.gb-col{flex:1;min-width:0;height:100%;border:none;background:none;padding:0;cursor:pointer;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;font-family:inherit;position:relative}
+.gb-bar{display:block;width:72%;max-width:26px;min-height:0;border-radius:4px 4px 0 0;transition:height .45s cubic-bezier(.3,1.2,.5,1),opacity .15s}
+.gb-col.zero .gb-bar{height:0!important}
+.gb-v{font-size:10.5px;font-weight:700;color:var(--tinta-2);margin-bottom:3px;line-height:1;white-space:nowrap}
+.gb-col:hover .gb-bar,.gb-col:focus-visible .gb-bar,.gb-col.ativo .gb-bar{opacity:.72}
+.gb-col:focus-visible{outline:2px solid var(--verde);outline-offset:1px;border-radius:6px}
+.gb-meta{position:absolute;left:0;right:0;border-top:1.5px dashed #9DB58C;pointer-events:none}
+.gb-meta span{position:absolute;right:0;bottom:2px;font-size:10px;font-weight:700;color:var(--tinta-2);background:rgba(255,253,246,.85);padding:0 3px;border-radius:4px}
+.gb-x{display:flex;gap:2px;margin-top:5px}
+.gb-x span{flex:1;min-width:0;display:flex;justify-content:center;font-size:10px;font-weight:600;color:#8FA283;white-space:nowrap;height:12px}
+.gb-leg{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:var(--tinta-2);margin-top:9px}
+.gb-leg i{width:20px;border-top:1.5px dashed #9DB58C;flex:none}
+.gb-x span.hoje{color:var(--verde-esc);font-weight:700}
+.gtip{position:fixed;z-index:700;pointer-events:none;background:#2F4427;color:#fff;font-size:12.5px;font-weight:500;line-height:1.35;padding:8px 11px;border-radius:12px;max-width:240px;box-shadow:0 8px 20px rgba(0,0,0,.22);display:none}
+.gtip b{font-family:'Baloo 2',sans-serif;font-size:13.5px;display:block}
+.gtip.show{display:block}
+
+.dia-card{background:var(--card);border:1.5px solid var(--borda);border-radius:22px;margin-bottom:10px;box-shadow:0 8px 20px rgba(60,110,45,.07);overflow:hidden}
+.dia-card summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 14px}
+.dia-card summary::-webkit-details-marker{display:none}
+.dia-card .dc-data{width:48px;flex:none;text-align:center;background:var(--verde-fundo);border-radius:14px;padding:5px 0 4px}
+.dia-card .dc-data b{font-family:'Baloo 2',sans-serif;font-size:19px;line-height:1;display:block;color:var(--verde-esc)}
+.dia-card .dc-data small{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--tinta-2);letter-spacing:.3px}
+.dia-card.hoje .dc-data{background:#FFF1D6}
+.dia-card.hoje .dc-data b{color:#B86A00}
+.dc-meio{flex:1;min-width:0}
+.dc-meio .dc-t{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:15px;line-height:1.2}
+.dc-meio .dc-r{font-size:12.5px;color:var(--tinta-2);font-weight:600;margin-top:2px;display:flex;flex-wrap:wrap;gap:2px 10px}
+.dc-seta{color:#B6CBA5;font-weight:800;transition:transform .2s;flex:none}
+.dia-card[open] .dc-seta{transform:rotate(90deg)}
+.dc-corpo{padding:0 14px 14px;border-top:1.5px solid #F0F6E8}
+.dc-sec{font-size:12px;font-weight:700;color:var(--tinta-2);margin:13px 0 7px;display:flex;align-items:baseline;gap:6px}
+.dc-sec span{font-weight:500;color:var(--cinza)}
+.chs{display:flex;flex-wrap:wrap;gap:6px}
+.ch{display:inline-flex;align-items:baseline;gap:5px;border-radius:12px;padding:5px 10px;font-size:13px;font-weight:600;color:var(--texto);background:#F5F8F0;border:1.5px solid #E6EFDB}
+.ch b{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:14px}
+.ch small{font-size:11px;font-weight:600;color:var(--tinta-2)}
+.ch.ch-x{background:#FFF6E3;border-color:#FFE0A6}
+.ch.ch-a{background:#EEF8FE;border-color:#CBE8F8}
+.dc-vazio{font-size:12.5px;color:#9cae90}
+.rel-vazio{text-align:center;color:var(--cinza);font-size:14px;padding:26px 10px;background:var(--card);border:1.5px dashed var(--verde-claro);border-radius:22px;margin-bottom:14px}
+.rel-vazio span{font-size:38px;display:block;margin-bottom:6px}
+.rel-h{font-family:'Baloo 2',sans-serif;font-size:17px;color:var(--verde-esc);margin:18px 4px 10px}
+.so-print{display:none}
+
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{background:#fff}
+  body::before,.navbar,.topo,.toast,.aviso-topo,.gtip,.no-print,.modal-fundo,#tela-relatorio .saudacao,.rel-periodo{display:none!important}
+  .tela{display:none!important}
+  #tela-relatorio{display:block!important;animation:none}
+  .wrap{max-width:none;margin:0;padding:0;background:none;box-shadow:none;border-radius:0;overflow:visible;min-height:0}
+  .so-print{display:block;margin-bottom:12px;font-size:12px;color:#333}
+  .so-print b{font-family:'Baloo 2',sans-serif;font-size:20px;color:#000;display:block}
+  .card-form,.tile,.dia-card{box-shadow:none;break-inside:avoid}
+  .dc-seta{display:none}
+}
 </style>
 </head>
 <body>
@@ -273,29 +440,35 @@ body{
 
   <!-- ================= TELA 1: CADASTRO ================= -->
   <section class="tela ativa" id="tela-cadastro">
-    <div class="topo"><div class="cenario"></div><div class="mascote"><span id="avatarCadastro">🐯</span></div></div>
+    <div class="topo"><div class="cenario"></div><div class="mascote"><span id="avatarCadastro">🐵</span></div></div>
     <div class="pad">
       <div class="saudacao">
         <h1 id="cadTitulo">Bem-vindo(a)! 🌈</h1>
         <p id="cadSub">Vamos montar a rotina do seu filho(a)</p>
       </div>
+      <div class="destaques">
+        <div class="dq dq-agua"><span>💧</span><b>Água</b><small>meta e lembretes do dia</small></div>
+        <div class="dq dq-xixi"><span>🚽</span><b>Xixi</b><small>horário de cada ida</small></div>
+        <div class="dq"><span>⭐</span><b>Rotina</b><small>tarefas que viram estrelas</small></div>
+      </div>
+      <div class="passos"><i class="on"></i><i></i><em>Passo 1 de 2</em></div>
       <div class="card-form">
         <div class="campo">
-          <label for="inResp">Nome do responsável</label>
-          <input type="text" id="inResp" placeholder="Ex.: Ana Paula" autocomplete="off">
+          <label for="inResp">Nome completo do responsável</label>
+          <input type="text" id="inResp" placeholder="Ex.: Ana Paula Ribeiro" autocomplete="off">
         </div>
         <div class="campo">
-          <label for="inCrianca">Nome da criança</label>
-          <input type="text" id="inCrianca" placeholder="Ex.: Sofia" autocomplete="off">
+          <label for="inCrianca">Nome completo do paciente</label>
+          <input type="text" id="inCrianca" placeholder="Ex.: Sofia Ribeiro Lima" autocomplete="off">
         </div>
         <div class="consent">
           <input type="checkbox" id="inConsent">
-          <label for="inConsent">Autorizo o uso do nome do responsável e da criança para personalizar esta rotina, e o envio automático dos registros de rotina para acompanhamento profissional.</label>
+          <label for="inConsent">Autorizo o uso do nome do responsável e do paciente para personalizar esta rotina, e o envio automático dos registros de rotina para acompanhamento profissional.</label>
         </div>
       </div>
       <button class="btn btn-primary" id="btnCadastro" disabled>Continuar</button>
       <button class="btn btn-secundario" id="btnCadVoltar" style="margin-top:10px;display:none">← Voltar</button>
-      <p class="nota">Os registros de rotina, água e xixi são enviados automaticamente para acompanhamento profissional.</p>
+      <p class="nota">🔒 Os registros de rotina, água e xixi são enviados automaticamente para acompanhamento profissional.</p>
     </div>
   </section>
 
@@ -402,7 +575,7 @@ body{
           <div class="painel-item">
             <div class="pi-label">🚽 Xixi</div>
             <div class="pi-valor" id="piXixi">0</div>
-            <div class="pi-sub">vezes hoje</div>
+            <div class="pi-sub" id="piXixiSub">vezes hoje</div>
           </div>
         </div>
         <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
@@ -574,9 +747,11 @@ body{
           <div class="stat-pill"><div class="sp-v" id="xxUltimo">—</div><div class="sp-l">último xixi</div></div>
           <div class="stat-pill"><div class="sp-v" id="xxMedia">—</div><div class="sp-l">intervalo médio</div></div>
         </div>
+        <div class="ld-titulo">Linha do dia</div>
+        <div id="linhaHoje"></div>
         <button class="btn-registro r-xixi" id="btnXixi2">🚽 Fiz xixi agora!</button>
         <div class="hist-lista" id="xixiHist"></div>
-        <p class="nota">Os registros ajudam no acompanhamento da saúde e do desfralte, e são enviados automaticamente para a equipe responsável. 🩺</p>
+        <p class="nota">Os registros ajudam no acompanhamento da saúde e do desfralde, e são enviados automaticamente para a equipe responsável. 🩺</p>
       </div>
     </div>
   </section>
@@ -589,28 +764,57 @@ body{
         <h1>Relatório 📊</h1>
         <p id="relSub">Área do profissional</p>
       </div>
+      <div class="so-print" id="relPrintHead"></div>
 
-      <div class="card-form" id="relSelCard" style="display:none">
+      <div class="card-form no-print" id="relSelCard" style="display:none">
         <div class="campo">
-          <label for="relSel">Criança:</label>
+          <label for="relSel">Paciente:</label>
           <select id="relSel"></select>
         </div>
       </div>
 
-      <div class="card-form">
-        <h2>📅 Últimos dias</h2>
-        <div class="rel-head">
-          <span>Data</span><span>⭐ Tarefas</span><span>💧 Água</span><span>🚽 Xixi</span><span>⏱ Interv. médio</span>
+      <div class="seg no-print" id="relSeg" role="group" aria-label="Período do relatório">
+        <button type="button" data-dias="7" class="on">7 dias</button>
+        <button type="button" data-dias="14">14 dias</button>
+        <button type="button" data-dias="30">30 dias</button>
+      </div>
+      <p class="rel-periodo" id="relPeriodo"></p>
+
+      <div id="relVazio" class="rel-vazio" style="display:none"><span>🌱</span>Ainda não há registros neste período.</div>
+
+      <div id="relConteudo">
+        <div class="tiles" id="relTiles"></div>
+
+        <div class="card-form">
+          <h2>🚽 Xixis por dia</h2>
+          <p class="g-sub">Quantas idas ao banheiro em cada dia. Toque numa barra para ver os horários.</p>
+          <div id="gXixi"></div>
         </div>
-        <div id="relTabela"></div>
+
+        <div class="card-form">
+          <h2>🕐 Horários mais comuns do xixi</h2>
+          <p class="g-sub" id="gHorasSub">Soma de todas as idas do período, por hora do dia.</p>
+          <div id="gHoras"></div>
+        </div>
+
+        <div class="card-form">
+          <h2>💧 Água por dia</h2>
+          <p class="g-sub">Total de ml registrados em cada dia, comparado com a meta.</p>
+          <div id="gAgua"></div>
+        </div>
+
+        <h2 class="rel-h">📔 Diário, dia a dia</h2>
+        <div id="relDiario"></div>
       </div>
 
-      <div class="card-form">
-        <h2>⬇️ Exportar dados</h2>
-        <p style="font-size:13px;color:var(--cinza);line-height:1.45">Baixe os dados em CSV para abrir no Excel ou Google Planilhas.</p>
-        <button class="btn-registro r-verde" id="btnCsvResumo">📄 Baixar resumo por dia (CSV)</button>
-        <button class="btn-registro r-agua" id="btnCsvDetalhe">🕐 Baixar todos os registros (CSV)</button>
-        <p class="nota">O resumo tem uma linha por dia. O detalhado tem cada registro de água (em ml), xixi e tarefa com horário.</p>
+      <div class="card-form no-print">
+        <h2>⬇️ Exportar e compartilhar</h2>
+        <p style="font-size:13px;color:var(--cinza);line-height:1.45">Imprima ou salve em PDF, copie um resumo em texto, ou baixe em CSV para abrir no Excel ou Google Planilhas.</p>
+        <button class="btn-registro r-verde" id="btnImprimir">🖨️ Imprimir ou salvar em PDF</button>
+        <button class="btn-registro r-claro" id="btnCopiar">📋 Copiar resumo com os horários</button>
+        <button class="btn-registro r-claro" id="btnCsvResumo">📄 Baixar resumo por dia (CSV)</button>
+        <button class="btn-registro r-claro" id="btnCsvDetalhe">🕐 Baixar todos os registros (CSV)</button>
+        <p class="nota">O resumo tem uma linha por dia, com o horário de cada xixi. O detalhado tem cada registro de água (em ml), xixi e tarefa com horário.</p>
       </div>
     </div>
   </section>
@@ -830,7 +1034,8 @@ const CENARIO_SVG = `
     <path d="M340 196 v-7 M344 196 v-5"/>
   </g>
 </svg>`;
-document.querySelectorAll('.cenario').forEach(c=>{ c.innerHTML=CENARIO_SVG; });
+const MARCA_HTML = '<div class="marca" aria-label="Gota"><svg viewBox="0 0 34 44" aria-hidden="true"><path d="M17 2 C27 17 32 25 32 31 C32 38.5 25.5 43 17 43 C8.5 43 2 38.5 2 31 C2 25 7 17 17 2 Z" fill="#4FB7EE"/><path d="M11 22 C8.5 27 7.5 31 8.5 34" stroke="#fff" stroke-width="3.4" stroke-linecap="round" fill="none" opacity=".75"/></svg>Gota</div>';
+document.querySelectorAll('.cenario').forEach(c=>{ c.innerHTML=CENARIO_SVG; c.insertAdjacentHTML('afterend', MARCA_HTML); });
 
 // ===================== PERSONAGENS =====================
 const AVATARES=['🐯','🦁','🐰','🐼','🐨','🐶','🐱','🦊','🐸','🦄','🐷','🐵','🐻','🐥','🐮','🐙','🦖','🦕','🐬','🦉','👧','👦','🧒','🤖','🦸'];
@@ -1011,7 +1216,7 @@ document.getElementById('btnCadVoltar').addEventListener('click',()=>{ renderCri
 
 btnCad.addEventListener('click',()=>{
   const id='c'+Date.now().toString(36);
-  const kid={id, nome:inCri.value.trim(), responsavel:inResp.value.trim(), avatar:'🐯', criadoEm:new Date().toISOString()};
+  const kid={id, nome:inCri.value.trim(), responsavel:inResp.value.trim(), avatar:'🐵', criadoEm:new Date().toISOString()};
   if(!kids) kids={ativa:id, lista:[]};
   kids.lista.push(kid); kids.ativa=id;
   salvarJSON(K_KIDS, kids);
@@ -1317,7 +1522,8 @@ function registrarXixi(){
   const svgRim=document.getElementById('rimSvg');
   svgRim.classList.remove('apertado'); svgRim.style.transform='scale(1.12)';
   setTimeout(()=>{ svgRim.style.transform=''; }, 350);
-  sincronizarNuvem('Xixi', '');
+  const nX=cuidados.xixi.length;
+  sincronizarNuvem('Xixi', nX+'º do dia'+(nX>1 ? ' · '+fmtGap((ts-cuidados.xixi[nX-2])/60000)+' depois do anterior' : ''));
 }
 document.getElementById('btnBebi').addEventListener('click',()=>registrarAgua());
 document.getElementById('btnBebi2').addEventListener('click',()=>registrarAgua());
@@ -1365,6 +1571,8 @@ function renderCuidados(){
   montaHistorico('xixiHist', x, 'xixi');
   document.getElementById('piAgua').textContent = qtd+' ml';
   document.getElementById('piXixi').textContent = x.length;
+  document.getElementById('piXixiSub').textContent = x.length ? 'último às '+fmtHora(x[x.length-1]) : 'vezes hoje';
+  document.getElementById('linhaHoje').innerHTML = linhaDoDia(x, cuidados.agua, config);
 }
 
 function montaHistorico(elId, arr, tipo){
@@ -1393,21 +1601,116 @@ function montaHistorico(elId, arr, tipo){
 }
 
 // ===================== RELATÓRIO (área do profissional) =====================
+function esc(v){ return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function fmtGap(min){ return min<1 ? 'menos de 1 min' : fmtDur(min); }
+function fmtNum(n, casas){ return n.toFixed(casas).replace('.', ','); }
+const DIAS_CURTO=['dom','seg','ter','qua','qui','sex','sáb'];
+const DIAS_LONGO=['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+function dataDeId(id){ const p=id.split('-').map(Number); return new Date(p[0], p[1]-1, p[2]); }
+function diasDoPeriodo(n){
+  const out=[], h=new Date();
+  for(let i=n-1;i>=0;i--) out.push(fmtLocal(new Date(h.getFullYear(), h.getMonth(), h.getDate()-i)));
+  return out;
+}
+function horaDec(ts){ const d=new Date(ts); return d.getHours()+d.getMinutes()/60; }
+
 function statsDia(h){
-  const x=h.xixi||[];
-  let media='';
-  if(x.length>=2){ let soma=0; for(let i=1;i<x.length;i++) soma+=x[i]-x[i-1]; media=Math.round(soma/(x.length-1)/60000); }
+  h=h||{};
+  const x=[...(h.xixi||[])].sort((a,b)=>a-b);
+  const gaps=[]; for(let i=1;i<x.length;i++) gaps.push((x[i]-x[i-1])/60000);
+  const media = gaps.length ? Math.round(gaps.reduce((s,g)=>s+g,0)/gaps.length) : '';
+  const agua=[...(h.agua||[])].sort((a,b)=>aTs(a)-aTs(b));
+  const tarefas=[...(h.tarefas||[])].sort((a,b)=>(a.ts||0)-(b.ts||0));
   return {
-    tarefas:(h.tarefas||[]).length, totalTarefas:h.totalTarefas||0,
-    aguaMl:aguaTotal(h.agua), xixis:x.length,
-    mediaMin:media,
-    primeiroXixi:x.length?fmtHora(x[0]):'', ultimoXixi:x.length?fmtHora(x[x.length-1]):''
+    tarefas:tarefas.length, totalTarefas:h.totalTarefas||0,
+    aguaMl:aguaTotal(agua), xixis:x.length,
+    mediaMin:media, maiorMin: gaps.length ? Math.round(Math.max(...gaps)) : '',
+    primeiroXixi:x.length?fmtHora(x[0]):'', ultimoXixi:x.length?fmtHora(x[x.length-1]):'',
+    xixiTs:x, gaps, horarios:x.map(fmtHora), aguaLista:agua, tarefasLista:tarefas
   };
 }
+
+// Régua de horas com cada xixi (bolinha) e cada registro de água (losango).
+function linhaDoDia(xixi, agua, cfg){
+  const hh=s=>{ const p=String(s||'').split(':').map(Number); return (p[0]||0)+(p[1]||0)/60; };
+  let a=Math.floor(hh(cfg.acordar)), b=Math.ceil(hh(cfg.dormir));
+  if(b<=a) b=24;
+  [...xixi, ...agua.map(aTs)].forEach(ts=>{ const v=horaDec(ts); a=Math.min(a,Math.floor(v)); b=Math.max(b,Math.min(24,Math.floor(v)+1)); });
+  if(b-a<4) b=Math.min(24,a+4);
+  const pos=ts=>((horaDec(ts)-a)/(b-a)*100).toFixed(2);
+  const passo=(b-a)>12?3:(b-a)>6?2:1;
+  let ticks='';
+  for(let h=a;h<=b;h+=passo) ticks+=`<span style="left:${((h-a)/(b-a)*100).toFixed(2)}%">${h}h</span>`;
+  return `<div class="ld">
+    <div class="ld-lane"><span class="ld-ico" title="Xixi">🚽</span><div class="ld-trilho">${xixi.map(ts=>`<i class="ld-x" style="left:${pos(ts)}%" title="Xixi às ${fmtHora(ts)}"></i>`).join('')}</div></div>
+    <div class="ld-lane"><span class="ld-ico" title="Água">💧</span><div class="ld-trilho">${agua.map(e=>`<i class="ld-a" style="left:${pos(aTs(e))}%" title="${aMl(e)} ml às ${fmtHora(aTs(e))}"></i>`).join('')}</div></div>
+    <div class="ld-eixo">${ticks}</div>
+  </div>`;
+}
+
+// Gráfico de barras de uma série só. itens: [{rot, val, tip, hoje}]
+function graficoBarras(el, itens, o){
+  const maxVal=Math.max(0, ...itens.map(i=>i.val));
+  const topo=Math.max(maxVal, o.meta||0, 1)*1.18;
+  const poucos=itens.length<=14;
+  let h='<div class="gb-plot">';
+  if(o.meta) h+=`<div class="gb-meta" style="bottom:${(o.meta/topo*100).toFixed(1)}%"></div>`;
+  itens.forEach(it=>{
+    const rotulo = it.val>0 && (poucos || it.val===maxVal) ? `<span class="gb-v">${it.val}</span>` : '';
+    h+=`<button type="button" class="gb-col${it.val?'':' zero'}" data-tip="${esc(it.tip)}" aria-label="${esc(it.tip.replace(/<[^>]+>/g,' '))}">${rotulo}<span class="gb-bar" style="height:${(it.val/topo*100).toFixed(1)}%;background:${o.cor}"></span></button>`;
+  });
+  h+='</div><div class="gb-x">';
+  const passo=o.passo || (itens.length<=8?1 : itens.length<=16?2 : 5);
+  itens.forEach((it,i)=>{
+    const mostra = o.doInicio ? i%passo===0 : (itens.length-1-i)%passo===0;
+    h+=`<span class="${it.hoje?'hoje':''}">${mostra?esc(it.rot):''}</span>`;
+  });
+  el.innerHTML=h+'</div>'+(o.meta?`<p class="gb-leg"><i></i>Linha tracejada: meta de ${o.meta} ${o.un||''} por dia</p>`:'');
+}
+
+// Balão dos gráficos (passar o mouse, tocar ou focar com o teclado)
+const gtip=document.createElement('div'); gtip.className='gtip'; document.body.appendChild(gtip);
+let gtipCol=null;
+function mostrarTip(col){
+  if(gtipCol) gtipCol.classList.remove('ativo');
+  gtipCol=col; col.classList.add('ativo');
+  gtip.innerHTML=col.dataset.tip; gtip.classList.add('show');
+  const r=col.getBoundingClientRect(), t=gtip.getBoundingClientRect();
+  const bar=col.querySelector('.gb-bar').getBoundingClientRect();
+  let x=r.left+r.width/2-t.width/2;
+  x=Math.max(8, Math.min(window.innerWidth-t.width-8, x));
+  let y=Math.min(bar.top, r.bottom-18)-t.height-10;
+  if(y<8) y=r.bottom+8;
+  gtip.style.left=x+'px'; gtip.style.top=y+'px';
+}
+function esconderTip(){ if(gtipCol) gtipCol.classList.remove('ativo'); gtipCol=null; gtip.classList.remove('show'); }
+(function(){
+  const tela=document.getElementById('tela-relatorio');
+  tela.addEventListener('pointerover',e=>{ const c=e.target.closest('.gb-col'); if(c && e.pointerType==='mouse') mostrarTip(c); });
+  tela.addEventListener('pointerout',e=>{ if(e.pointerType==='mouse' && e.target.closest('.gb-col')) esconderTip(); });
+  tela.addEventListener('focusin',e=>{ const c=e.target.closest('.gb-col'); if(c) mostrarTip(c); });
+  tela.addEventListener('focusout',e=>{ if(e.target.closest('.gb-col')) esconderTip(); });
+  document.addEventListener('click',e=>{ const c=e.target.closest('.gb-col'); if(c) mostrarTip(c); else esconderTip(); });
+  window.addEventListener('scroll',esconderTip,{passive:true});
+})();
+
+let relDias=7;
 function relKid(){ return kids.lista.find(c=>c.id===relKidId) || kidAtiva(); }
+function relConfig(c){
+  const cfg=Object.assign({}, CONFIG_PADRAO, lerJSON(B_CONFIG+'-'+c.id)||{});
+  if(cfg.aguaMeta && cfg.aguaMeta<=20) cfg.aguaMeta=cfg.aguaMeta*COPO_LEGADO_ML;
+  return cfg;
+}
+function relDados(){
+  const c=relKid(), dados=histDe(c.id);
+  const dias=diasDoPeriodo(relDias).map(d=>({d, s:statsDia(dados[d])}));
+  const comReg=dias.filter(p=>p.s.xixis || p.s.aguaMl || p.s.tarefas);
+  return {c, dados, dias, comReg, cfg:relConfig(c)};
+}
+
 function renderRelatorio(){
   if(!relKidId || !kids.lista.some(c=>c.id===relKidId)) relKidId=kids.ativa;
-  // seletor de criança (aparece se houver mais de uma)
+  // seletor de paciente (aparece se houver mais de um)
   const selCard=document.getElementById('relSelCard'), sel=document.getElementById('relSel');
   if(kids.lista.length>1){
     selCard.style.display='block';
@@ -1419,26 +1722,104 @@ function renderRelatorio(){
       sel.appendChild(op);
     });
   } else selCard.style.display='none';
+  document.querySelectorAll('#relSeg button').forEach(b=>b.classList.toggle('on', parseInt(b.dataset.dias,10)===relDias));
+  esconderTip();
 
-  const c=relKid();
+  const {c, dias, comReg, cfg}=relDados();
   document.getElementById('relSub').textContent='Dados de '+c.nome;
-  const dados=histDe(c.id);
-  const tab=document.getElementById('relTabela'); tab.innerHTML='';
-  const dias=Object.keys(dados).sort().reverse();
-  if(!dias.length){ tab.innerHTML='<div class="hist-vazio">Ainda não há registros desta criança. 🌱</div>'; return; }
-  dias.slice(0,14).forEach(d=>{
-    const s=statsDia(dados[d]);
-    const row=document.createElement('div'); row.className='rel-row';
-    const hoje=d===hojeId();
-    row.innerHTML=`<span class="r-data${hoje?' r-hoje':''}">${fmtDataBr(d)}${hoje?' 📍':''}</span>
-      <span>${s.tarefas}/${s.totalTarefas||'—'}</span>
-      <span>${s.aguaMl} ml</span>
-      <span>${s.xixis}</span>
-      <span>${s.mediaMin!==''? fmtDur(s.mediaMin) : '—'}</span>`;
-    tab.appendChild(row);
+  const periodoTxt='De '+fmtDataBr(dias[0].d)+' a '+fmtDataBr(dias[dias.length-1].d)+' · '+comReg.length+(comReg.length===1?' dia com registro':' dias com registro');
+  document.getElementById('relPeriodo').textContent=periodoTxt;
+  document.getElementById('relPrintHead').innerHTML='<b>Gota · Relatório de '+esc(c.nome)+'</b>Responsável: '+esc(c.responsavel||'')+' · '+esc(periodoTxt)+' · gerado em '+fmtDataBr(hojeId())+' às '+fmtHora(Date.now());
+
+  const vazio=!comReg.length;
+  document.getElementById('relVazio').style.display = vazio ? 'block' : 'none';
+  document.getElementById('relConteudo').style.display = vazio ? 'none' : 'block';
+  if(vazio) return;
+
+  // ---- números do período
+  const n=comReg.length;
+  const totX=comReg.reduce((s,p)=>s+p.s.xixis,0);
+  const gaps=[].concat(...comReg.map(p=>p.s.gaps));
+  const totAgua=comReg.reduce((s,p)=>s+p.s.aguaMl,0);
+  const tFeitas=comReg.reduce((s,p)=>s+p.s.tarefas,0), tTotal=comReg.reduce((s,p)=>s+(p.s.totalTarefas||0),0);
+  const mediaGap=gaps.length ? gaps.reduce((s,g)=>s+g,0)/gaps.length : null;
+  document.getElementById('relTiles').innerHTML=`
+    <div class="tile"><div class="t-l">🚽 Xixis por dia</div><div class="t-v">${fmtNum(totX/n,1)}</div><div class="t-s">${totX} no período</div></div>
+    <div class="tile"><div class="t-l">⏱ Intervalo médio</div><div class="t-v">${mediaGap!==null?fmtGap(mediaGap):'—'}</div><div class="t-s">${gaps.length?'maior: '+fmtGap(Math.max(...gaps)):'entre um xixi e outro'}</div></div>
+    <div class="tile"><div class="t-l">💧 Água por dia</div><div class="t-v">${Math.round(totAgua/n)}<small>ml</small></div><div class="t-s">meta de ${cfg.aguaMeta} ml</div></div>
+    <div class="tile"><div class="t-l">⭐ Tarefas feitas</div><div class="t-v">${tTotal?Math.round(Math.min(1,tFeitas/tTotal)*100)+'<small>%</small>':tFeitas}</div><div class="t-s">${tTotal?tFeitas+' de '+tTotal:'no período'}</div></div>`;
+
+  // ---- gráficos
+  const rotDia=d=>fmtDataBr(d);
+  const nomeDia=d=>DIAS_CURTO[dataDeId(d).getDay()]+' '+fmtDataBr(d);
+  graficoBarras(document.getElementById('gXixi'), dias.map(p=>({
+    rot:rotDia(p.d), val:p.s.xixis, hoje:p.d===hojeId(),
+    tip:'<b>'+nomeDia(p.d)+' · '+p.s.xixis+(p.s.xixis===1?' xixi':' xixis')+'</b>'+(p.s.horarios.length?esc(p.s.horarios.join(' · ')):'Sem registro')
+  })), {cor:'var(--g-xixi)'});
+
+  const porHora=new Array(24).fill(0);
+  comReg.forEach(p=>p.s.xixiTs.forEach(ts=>porHora[new Date(ts).getHours()]++));
+  graficoBarras(document.getElementById('gHoras'), porHora.map((v,h)=>({
+    rot:h+'h', val:v,
+    tip:'<b>Das '+h+'h às '+(h+1)+'h</b>'+v+(v===1?' xixi':' xixis')+' no período'
+  })), {cor:'var(--g-xixi)', passo:3, doInicio:true});
+  const pico=Math.max(...porHora);
+  document.getElementById('gHorasSub').textContent = pico
+    ? 'Soma de todas as idas do período, por hora do dia. Pico: '+porHora.map((v,h)=>v===pico?h+'h':null).filter(Boolean).slice(0,3).join(', ')+'.'
+    : 'Soma de todas as idas do período, por hora do dia.';
+
+  graficoBarras(document.getElementById('gAgua'), dias.map(p=>({
+    rot:rotDia(p.d), val:p.s.aguaMl, hoje:p.d===hojeId(),
+    tip:'<b>'+nomeDia(p.d)+' · '+p.s.aguaMl+' ml</b>'+(p.s.aguaLista.length?p.s.aguaLista.length+(p.s.aguaLista.length===1?' registro':' registros')+(p.s.aguaMl>=cfg.aguaMeta?' · meta batida':''):'Sem registro')
+  })), {cor:'var(--g-agua)', meta:cfg.aguaMeta, un:'ml'});
+
+  // ---- diário, dia a dia (mais recente primeiro)
+  const diario=document.getElementById('relDiario'); diario.innerHTML='';
+  [...comReg].reverse().forEach((p,i)=>{
+    const s=p.s, dt=dataDeId(p.d), hoje=p.d===hojeId();
+    const det=document.createElement('details');
+    det.className='dia-card'+(hoje?' hoje':''); if(i===0) det.open=true;
+    const chX=s.xixiTs.map((ts,k)=>`<span class="ch ch-x"><b>${fmtHora(ts)}</b>${k?'<small>+'+fmtGap(s.gaps[k-1])+'</small>':''}</span>`).join('');
+    const chA=s.aguaLista.map(e=>`<span class="ch ch-a"><b>${fmtHora(aTs(e))}</b><small>${aMl(e)} ml</small></span>`).join('');
+    const chT=s.tarefasLista.map(t=>`<span class="ch">${esc(t.nome)}<small>${t.ts?fmtHora(t.ts):''}</small></span>`).join('');
+    det.innerHTML=`<summary>
+        <div class="dc-data"><b>${p.d.slice(8,10)}</b><small>${DIAS_CURTO[dt.getDay()]}</small></div>
+        <div class="dc-meio">
+          <div class="dc-t">${DIAS_LONGO[dt.getDay()]}, ${fmtDataBr(p.d)}${hoje?' · hoje':''}</div>
+          <div class="dc-r"><span>🚽 ${s.xixis}</span><span>💧 ${s.aguaMl} ml</span><span>⭐ ${s.tarefas}${s.totalTarefas?'/'+s.totalTarefas:''}</span></div>
+        </div>
+        <span class="dc-seta">›</span>
+      </summary>
+      <div class="dc-corpo">
+        ${linhaDoDia(s.xixiTs, s.aguaLista, cfg)}
+        <div class="dc-sec">🚽 Horários do xixi <span>${s.xixis?s.xixis+(s.xixis===1?' vez':' vezes')+(s.mediaMin!==''?' · intervalo médio '+fmtGap(s.mediaMin):''):''}</span></div>
+        ${chX?'<div class="chs">'+chX+'</div>':'<div class="dc-vazio">Nenhum xixi registrado neste dia.</div>'}
+        <div class="dc-sec">💧 Água <span>${s.aguaMl?s.aguaMl+' ml no dia':''}</span></div>
+        ${chA?'<div class="chs">'+chA+'</div>':'<div class="dc-vazio">Nenhum registro de água neste dia.</div>'}
+        <div class="dc-sec">⭐ Tarefas <span>${s.tarefas?s.tarefas+(s.totalTarefas?' de '+s.totalTarefas:''):''}</span></div>
+        ${chT?'<div class="chs">'+chT+'</div>':'<div class="dc-vazio">Nenhuma tarefa marcada neste dia.</div>'}
+      </div>`;
+    diario.appendChild(det);
   });
 }
 document.getElementById('relSel').addEventListener('change',e=>{ relKidId=e.target.value; renderRelatorio(); });
+document.querySelectorAll('#relSeg button').forEach(b=>b.addEventListener('click',()=>{ relDias=parseInt(b.dataset.dias,10); renderRelatorio(); }));
+
+// Imprimir / PDF: abre todos os dias do diário para saírem completos no papel.
+let detAbertos=null;
+window.addEventListener('beforeprint',()=>{
+  const ds=[...document.querySelectorAll('#relDiario details')];
+  detAbertos=ds.map(d=>d.open); ds.forEach(d=>d.open=true);
+});
+window.addEventListener('afterprint',()=>{
+  if(!detAbertos) return;
+  [...document.querySelectorAll('#relDiario details')].forEach((d,i)=>{ d.open=!!detAbertos[i]; });
+  detAbertos=null;
+});
+document.getElementById('btnImprimir').addEventListener('click',()=>{
+  if(!relDados().comReg.length){ showToast('Ainda não há dados para imprimir 🌱'); return; }
+  window.print();
+});
 
 function baixarCSV(nomeArq, linhas){
   const blob=new Blob(["﻿"+linhas.join('\r\n')], {type:'text/csv;charset=utf-8'});
@@ -1447,12 +1828,13 @@ function baixarCSV(nomeArq, linhas){
   document.body.appendChild(a); a.click();
   setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 500);
 }
+function csvCampo(v){ v=String(v==null?'':v); return /[;"\r\n]/.test(v) ? '"'+v.replace(/"/g,'""')+'"' : v; }
 document.getElementById('btnCsvResumo').addEventListener('click',()=>{
   const c=relKid(); const dados=histDe(c.id);
-  const linhas=['Data;Crianca;Tarefas feitas;Total de tarefas;Agua (ml);Xixis;Intervalo medio xixi (min);Primeiro xixi;Ultimo xixi'];
+  const linhas=['Data;Crianca;Tarefas feitas;Total de tarefas;Agua (ml);Xixis;Intervalo medio xixi (min);Primeiro xixi;Ultimo xixi;Maior intervalo xixi (min);Horarios dos xixis'];
   Object.keys(dados).sort().forEach(d=>{
     const s=statsDia(dados[d]);
-    linhas.push([d, c.nome, s.tarefas, s.totalTarefas, s.aguaMl, s.xixis, s.mediaMin, s.primeiroXixi, s.ultimoXixi].join(';'));
+    linhas.push([d, c.nome, s.tarefas, s.totalTarefas, s.aguaMl, s.xixis, s.mediaMin, s.primeiroXixi, s.ultimoXixi, s.maiorMin, s.horarios.join(', ')].map(csvCampo).join(';'));
   });
   if(linhas.length===1){ showToast('Ainda não há dados para exportar 🌱'); return; }
   baixarCSV('rotina-'+slug(c.nome)+'-resumo-'+hojeId()+'.csv', linhas);
@@ -1460,34 +1842,48 @@ document.getElementById('btnCsvResumo').addEventListener('click',()=>{
 });
 document.getElementById('btnCsvDetalhe').addEventListener('click',()=>{
   const c=relKid(); const dados=histDe(c.id);
-  const linhas=['Data;Hora;Crianca;Tipo;Detalhe'];
+  const linhas=['Data;Hora;Crianca;Tipo;Detalhe;Intervalo desde o xixi anterior (min)'];
   Object.keys(dados).sort().forEach(d=>{
-    const h=dados[d]; const evs=[];
-    (h.agua||[]).forEach(e=>evs.push({ts:aTs(e), tipo:'Agua', det:aMl(e)+' ml'}));
-    (h.xixi||[]).forEach(ts=>evs.push({ts, tipo:'Xixi', det:''}));
-    (h.tarefas||[]).forEach(t=>evs.push({ts:t.ts, tipo:'Tarefa', det:t.nome}));
-    evs.sort((a,b)=>a.ts-b.ts).forEach(e=>linhas.push([d, fmtHora(e.ts), c.nome, e.tipo, e.det].join(';')));
+    const h=dados[d], s=statsDia(h), evs=[];
+    s.aguaLista.forEach(e=>evs.push({ts:aTs(e), tipo:'Agua', det:aMl(e)+' ml', gap:''}));
+    s.xixiTs.forEach((ts,i)=>evs.push({ts, tipo:'Xixi', det:(i+1)+'o do dia', gap:i?Math.round(s.gaps[i-1]):''}));
+    s.tarefasLista.forEach(t=>evs.push({ts:t.ts, tipo:'Tarefa', det:t.nome, gap:''}));
+    evs.sort((a,b)=>a.ts-b.ts).forEach(e=>linhas.push([d, fmtHora(e.ts), c.nome, e.tipo, e.det, e.gap].map(csvCampo).join(';')));
   });
   if(linhas.length===1){ showToast('Ainda não há dados para exportar 🌱'); return; }
   baixarCSV('rotina-'+slug(c.nome)+'-detalhado-'+hojeId()+'.csv', linhas);
   showToast('🕐 Registros baixados!');
 });
 
-// ===================== ENVIAR RELATÓRIO (pais → profissional) =====================
-function textoResumo(){
-  const c=kidAtiva();
-  const dias=Object.keys(hist).sort().slice(-7);
-  let msg='📊 *Rotina de '+c.nome+'* — resumo para '+PROFISSIONAL.nome+'\n';
+// ===================== RESUMO EM TEXTO (com o horário de cada xixi) =====================
+function textoResumo(c, dados, nDias){
+  c=c||kidAtiva(); dados=dados||hist; nDias=nDias||7;
+  const dias=Object.keys(dados).sort().slice(-nDias);
+  let msg='📊 *Rotina de '+c.nome+'* · resumo para '+PROFISSIONAL.nome+'\n';
   if(!dias.length){ msg+='\nAinda sem registros.'; return msg; }
   dias.forEach(d=>{
-    const s=statsDia(hist[d]);
-    msg+='\n📅 '+fmtDataBr(d)+' → ⭐ '+s.tarefas+'/'+s.totalTarefas+' tarefas · 💧 '+s.aguaMl+' ml · 🚽 '+s.xixis+' xixis';
-    if(s.mediaMin!=='') msg+=' (intervalo médio '+fmtDur(s.mediaMin)+')';
-    if(s.primeiroXixi) msg+=' · 1º xixi '+s.primeiroXixi+', último '+s.ultimoXixi;
+    const s=statsDia(dados[d]);
+    msg+='\n📅 *'+DIAS_CURTO[dataDeId(d).getDay()]+' '+fmtDataBr(d)+'* → ⭐ '+s.tarefas+'/'+s.totalTarefas+' tarefas · 💧 '+s.aguaMl+' ml · 🚽 '+s.xixis+(s.xixis===1?' xixi':' xixis');
+    if(s.mediaMin!=='') msg+=' (intervalo médio '+fmtGap(s.mediaMin)+')';
+    if(s.horarios.length) msg+='\n   🕐 Horários do xixi: '+s.horarios.join(', ');
   });
   msg+='\n\nEnviado pelo app Gota 💧';
   return msg;
 }
+document.getElementById('btnCopiar').addEventListener('click',async ()=>{
+  const {c, dados, dias, comReg}=relDados();
+  if(!comReg.length){ showToast('Ainda não há dados para copiar 🌱'); return; }
+  const recorte={}; dias.forEach(p=>{ if(dados[p.d]) recorte[p.d]=dados[p.d]; });
+  const txt=textoResumo(c, recorte, relDias);
+  try{ await navigator.clipboard.writeText(txt); }
+  catch(e){
+    const ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e2){}
+    ta.remove();
+  }
+  showToast('📋 Resumo copiado!');
+});
 document.getElementById('ajEnviar').addEventListener('click',()=>{
   if(!Object.keys(hist).length){ showToast('Ainda não há registros para sincronizar 🌱'); return; }
   if(!PROFISSIONAL.planilhaUrl){ showToast('Sincronização ainda não configurada pela agência 🔧'); return; }
